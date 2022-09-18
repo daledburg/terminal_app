@@ -1,10 +1,11 @@
 # Budgeting app
+from prettytable import PrettyTable
 from budget import Budget
 
 # Welcome and ask name
 your_name = input("Welcome to your personal budgeting buddy. What is your name? ")
 
-print(f'Well hello there {your_name}, lets get down to saving you money!')
+print(f'Well hello there {your_name.capitalize()}, lets get down to saving you money!')
 
 your_income = float(input("What is your income after tax? "))
 
@@ -24,6 +25,18 @@ while True:
     elif more_exp == 'n':
         break
 
-print(sum(p1.expense_amount))
+p1.spare_cash()
 
-print(p1.income - sum(p1.expense_amount))
+my_table = PrettyTable()
+
+my_table.field_names = ['Expense Description', 'Expense Amount']
+
+my_table.add_row([p1.expense_description[0], p1.expense_amount[0]])
+my_table.add_row([p1.expense_description[1], p1.expense_amount[1]])
+my_table.add_row([p1.expense_description[2], p1.expense_amount[2]])
+
+print(my_table)
+
+# for i in p1.expense_description[:]:
+#     my_table.add_row([p1.expense_description[], p1.expense_amount[]])
+
