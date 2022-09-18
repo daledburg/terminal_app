@@ -16,3 +16,14 @@ elif pay_timetable == 'f':
     your_income = your_income / 2
 
 p1 = Budget(your_name, your_income)
+
+while True:
+    more_exp = input('Do you want to add an expense? (y/n): ')
+    if more_exp == 'y':
+        p1.set_expense((input('What is this expense? ')), (float(input('How much is this expense? '))))
+    elif more_exp == 'n':
+        break
+
+print(sum(p1.expense_amount))
+
+print(p1.income - sum(p1.expense_amount))
