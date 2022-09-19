@@ -1,8 +1,11 @@
 # Budgeting app
 # Imported packages for application
 from prettytable import PrettyTable
+import numpy as np
+import matplotlib.pyplot as plt
 import pickle
 import budget
+# from timetable import *
 
 # Funtion to find weekly income
 def pay_timetable():
@@ -75,7 +78,7 @@ expense_table.field_names = ['Expense Description', 'Expense Amount ($)']
 
 expense_table.add_row(['Income per week', p1.income])
 
-for i in  range(len(p1.expense_description)):
+for i in range(len(p1.expense_description)):
     expense_table.add_row([p1.expense_description[i], -(p1.expense_amount[i])])
 
 expense_table.add_row(['Money Left', (p1.income - sum(p1.expense_amount))])
@@ -93,6 +96,9 @@ if table_print == 'y':
 elif table_print == 'n':
     print('Okay, lets continue then.')
 
+# What feature would they like to do next?
+print('There are more features to explore.')
+feature_select = input('What feature would you like to move onto')
 # Savings goal breakdown
 gg = float(input('How much is your current savings goal? '))
 tt = float(input('How many months do you have to save? '))
@@ -100,3 +106,9 @@ tt = float(input('How many months do you have to save? '))
 s1 = budget.SavingGoal(p1, p1, gg, tt)
 
 s1.find_required_amount()
+
+x = np.linspace(0, 2, 100)  # Sample data.
+
+
+
+# Debt relief calcualtor
