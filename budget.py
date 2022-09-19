@@ -3,7 +3,6 @@
 # Main Budgeting class to find simple budget
 
 class Budget:
-
     def __init__(self, name, income):
         self.name = name
         self.income = income
@@ -17,5 +16,17 @@ class Budget:
         self.total_expenses = self.total_expenses + new_exp_amount
         
     def spare_cash(self):
-        self.spare = self.income - self.total_expenses
+        print(self.income)
+        self.spare = self.income - sum(self.expense_amount)
         print(f'You have ${self.spare} left to spend!')
+
+class SavingGoal(Budget):
+    def __init__(self, name, income, savings_goal, savings_time):
+        super().__init__(name, income=income)
+        self.savings_goal = savings_goal
+        self.savings_time = savings_time
+        # contribution_needed = 0
+
+    def find_required_amount(self):
+        contribution_needed = round(((self.savings_goal / self.savings_time) / 4), 2)
+        print(f'You need to contribute ${contribution_needed} extra per week to reach your goal.')
