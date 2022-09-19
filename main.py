@@ -31,12 +31,15 @@ my_table = PrettyTable()
 
 my_table.field_names = ['Expense Description', 'Expense Amount']
 
-my_table.add_row([p1.expense_description[0], p1.expense_amount[0]])
-my_table.add_row([p1.expense_description[1], p1.expense_amount[1]])
-my_table.add_row([p1.expense_description[2], p1.expense_amount[2]])
+# my_table.add_row(('Income'), p1.income)
 
-print(my_table)
+for i in  range(len(p1.expense_description)):
+    my_table.add_row([p1.expense_description[i], -(p1.expense_amount[i])])
 
-# for i in p1.expense_description[:]:
-#     my_table.add_row([p1.expense_description[], p1.expense_amount[]])
+table_print = input(f'So {your_name} would you like to see a breakdown of your entered informtaion? (y/n) ')
 
+if table_print == 'y':
+    print('This is a breakdown of your current expenses.')
+    print(my_table)
+elif table_print == 'n':
+    print('Okay, lets continue then.')
