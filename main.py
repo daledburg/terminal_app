@@ -9,18 +9,8 @@ import budget
 import functions
 import login_function
 
-# Set files to export data for later use
-# username = ''
-# filename = 'exp_desc' + str(username)
-# filename1 = 'exp_amount' + str(username)
-existing_logins = 'ex_logins'
-
-# logins_filename = 'logins_filename.dat'
-# logins_diction = {}
-
+# Menu for budget start
 if_new = functions.menu()
-
-# your_name = input('Hello, What is your name? ')
 
 # Complete new budget
 if if_new == 'Register':
@@ -57,6 +47,10 @@ elif if_new == 'Existing User':
     username = login_function.current_user()
     your_name = username
     print(f'Hello there {your_name}, lets get down to saving you money!')
+    
+    filename = ('exp_desc' + str(username))
+    filename1 = ('exp_amount' + str(username))
+# existing_logins = 'ex_logins'
     your_income = functions.pay_timetable()
     p1 = budget.Budget(your_name, your_income)
     
@@ -69,31 +63,12 @@ elif if_new == 'Existing User':
     infile1.close()
 
     p1.spare_cash()
+elif if_new == 'Quit':
+    print('Goodbye!')
+    quit()
 
 # Display Table to show user breakdown of expenses against income and leftover money
-expense_table = PrettyTable()
-
-expense_table.field_names = ['Expense Description', 'Expense Amount ($)']
-
-expense_table.add_row(['Income per week', p1.income])
-
-for i in range(len(p1.expense_description)):
-    expense_table.add_row([p1.expense_description[i], -(p1.expense_amount[i])])
-
-expense_table.add_row(['Money Left', (p1.income - sum(p1.expense_amount))])
-
-expense_table.align['Expense Amount'] = 'r'
-expense_table.align['Expense Description'] = 'r'
-# print(expense_table.get_string(title='Income/Expense Breakdown Table'))
-
-table_print = input(f'So {your_name} would you like to see a breakdown of your entered informtaion? (y/n) ')
-
-# Ask user if they would like to display this table
-if table_print == 'y':
-    print('This is a breakdown of your current expenses.')
-    print(expense_table.get_string(title='Income/Expense Breakdown Table'))
-elif table_print == 'n':
-    print('Okay, lets continue then.')
+functions.display_table(p1)
 
 # What feature would they like to do next?
 print('There are more features to explore.')

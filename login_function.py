@@ -35,12 +35,11 @@ def current_user():
     # logins_filename = 'logins_filename.dat'
     logins_diction = {}
     keys = list(logins_diction.keys())
-    print(keys)
 
     inp_user = input('Username: ')
 
     for i in keys:
-        if inp_user == i:
+        if inp_user == keys[i]:
             print('success')
             inp_pwd = input('Password: ')
             if inp_pwd == logins_diction[inp_user]:
