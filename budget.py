@@ -19,7 +19,7 @@ class Budget:
     def spare_cash(self):
         print(self.income)
         self.spare = self.income - sum(self.expense_amount)
-        print(f'You have ${self.spare} left to spend every week!')
+        print(f'Based on your entered expenses, you have ${self.spare} left to spend every week!')
 
 # Child class for savings goal calculations
 

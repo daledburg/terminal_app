@@ -1,29 +1,19 @@
 # Budgeting app
+
 # Imported packages for application
 from prettytable import PrettyTable
-import numpy as np
-import matplotlib.pyplot as plt
+from simple_term_menu import TerminalMenu
 import pickle
 import budget
-# from timetable import *
-
-# Funtion to find weekly income
-def pay_timetable():
-    global your_income
-    your_income = float(input("What is your income after tax? "))
-    pay_time = input("Are you paid weekly, fortnightly, or monthly? (w/f/m) ")
-    if pay_time == 'm':
-        your_income = your_income / 4
-    elif pay_time == 'f':
-        your_income = your_income / 2
-    elif pay_time == 'w':
-        return your_income
-
-your_income = 0
+import functions
+# from functions import menu
+# from functions import pay_timetable
 
 # Set files to export data for later use
 filename = 'exp_desc'
 filename1 = 'exp_amount'
+
+functions.menu()
 
 your_name = input('Hello, What is your name? ')
 
@@ -34,7 +24,7 @@ if been_here_before == 'n':
 
     print(f'Hello there {your_name.capitalize()}, lets get down to saving you money!')
 
-    pay_timetable()
+    your_income = functions.pay_timetable()
 
     p1 = budget.Budget(your_name, your_income)
 
@@ -58,7 +48,7 @@ if been_here_before == 'n':
 elif been_here_before == 'y':
     print(f'Hello there {your_name.capitalize()}, lets get down to saving you money!')
 
-    pay_timetable()
+    your_income = functions.pay_timetable()
     p1 = budget.Budget(your_name, your_income)
     
     infile = open(filename, 'rb')
@@ -106,9 +96,5 @@ tt = float(input('How many months do you have to save? '))
 s1 = budget.SavingGoal(p1, p1, gg, tt)
 
 s1.find_required_amount()
-
-x = np.linspace(0, 2, 100)  # Sample data.
-
-
 
 # Debt relief calcualtor
