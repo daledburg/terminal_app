@@ -30,6 +30,8 @@ def new_user():
             pass
         if len(username) is 0 or len(password) > 20:
             print('Username must be between 1-20 characters long, try again: ')
+        elif len(password) <= 6 or len(password) > 16:
+            print('Password must be between 6 and 16 characters long, try again: ')
 
     # logins = username, password
     logins_diction[username] = password

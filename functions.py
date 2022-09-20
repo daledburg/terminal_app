@@ -28,17 +28,30 @@ def further_features():
 
 # Calculates income per week
 def pay_timetable():
-    your_income = float(input("What is your income after tax? $"))
-    pay_time = input("Are you paid weekly, fortnightly, or monthly? (w/f/m) ")
-    if pay_time == 'm':
-        your_income = your_income / 4
-        return your_income
-    elif pay_time == 'f':
-        your_income = your_income / 2
-        return your_income
-    elif pay_time == 'w':
-        return your_income
-
+    while True:
+        try:    
+            your_income = float(input("What is your income after tax? $"))
+            if your_income > 0.0:
+                break
+        except ValueError:
+            pass
+        print('Your income must be a positve number')
+    
+    while True:
+        try:
+            pay_time = input("Are you paid weekly, fortnightly, or monthly? (w/f/m) ")
+            if pay_time == 'm':
+                your_income = your_income / 4
+                return your_income
+            elif pay_time == 'f':
+                your_income = your_income / 2
+                return your_income
+            elif pay_time == 'w':
+                return your_income
+        except ValueError:
+            pass
+        print('Please enter either w, f or m')
+        
 # Table of income, expenses and left over money
 def display_table(x):
     expense_table = PrettyTable()
@@ -66,21 +79,38 @@ def display_table(x):
 
 # Feature of debt calculator function
 def debt_calculator():
-    balance_owed = float(input('What is the balance owed on the outstanding debt? $'))
-    current_contribution = float(input('What is the current contribution to this debt? $'))
+    while True:
+        try:    
+            balance_owed = float(input('What is the balance owed on the outstanding debt? $'))
+            if balance_owed > 0.0:
+                break
+        except ValueError:
+            pass
+        print('Your income must be a positve number')
     
-    frequency_of_contribution = (input('Do you pay this expense weekly, fortnightly, monthly? (w/f/m) ')).lower()
-    if frequency_of_contribution == 'f':
-        current_contribution = round((current_contribution / 2), 2)
-    elif frequency_of_contribution == 'm':
-        current_contribution = round((current_contribution / 4), 2)
-
-
-    paid_date = input('When do you want to pay this off by? format: mm/yyyy ')
-    paid_date_ints = paid_date.split('/')
-
-    month_int = int(paid_date_ints[0])
-    year_int = int(paid_date_ints[1])
+    while True:
+        try:
+            current_contribution = float(input('What is your current regualar contribution to this debt? $'))
+            if current_contribution > 0.0 and current_contribution < balance_owed:
+                break
+        except ValueError:
+            pass
+        print('Your current contribution must be a positve number and less than balance owed.')
+    
+    while True:
+        try:
+            frequency_of_contribution = (input('Do you pay this expense weekly, fortnightly, monthly? (w/f/m) ')).lower()
+            if frequency_of_contribution == 'f':
+                current_contribution = round((current_contribution / 2), 2)
+                break
+            elif frequency_of_contribution == 'm':
+                current_contribution = round((current_contribution / 4), 2)
+                break
+            elif frequency_of_contribution == 'w':
+                break
+        except ValueError:
+            pass
+        print('Please enter either w, f or m')
 
     current_date = date.today()
 
@@ -91,6 +121,23 @@ def debt_calculator():
     current_year_int = int(current_date_split[0])
     current_month_int = int(current_date_split[1])
 
+    while True:
+        try:
+            paid_date = str(input('When do you want to pay this off by? format: mm/yyyy '))
+            paid_date_ints = paid_date.split('/')
+
+            month_int = int(paid_date_ints[0])
+            year_int = int(paid_date_ints[1])
+            if (month_int > 0 and month_int <= 12) and (year_int > 2021 and year_int <= 2099):
+                if year_int > current_year_int:
+                    break
+                elif year_int == current_year_int:
+                    if month_int > current_month_int:
+                        break
+        except ValueError:
+            pass
+        print('Please enter future date in correct format: ')
+          
     months_to_pay = ((year_int - current_year_int) * 12) + (month_int - current_month_int)
 
     contribution_needed = round(((balance_owed / months_to_pay) / 4), 2)
@@ -103,30 +150,35 @@ def debt_calculator():
 # Function for adding expenses to new or existing users
 def adding_expenses(foo):
     while True:
-        more_exp = input('Do you want to add an expense? (y/n): ')
-        if more_exp == 'y':
-            next_expense = input('What is this expense? ')
-            amount_next_expense = float(input('How much is this expense? $'))
-            frequency_of_expense = (input('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) ')).lower()
-            if frequency_of_expense == 'f':
-                amount_next_expense = round((amount_next_expense / 2), 2)
-            elif frequency_of_expense == 'm':
-                amount_next_expense = round((amount_next_expense / 4), 2)
-            elif frequency_of_expense == 's':
-                amount_next_expense = round((amount_next_expense / 26), 2)
-            elif amount_next_expense == 'y':
-                amount_next_expense = round((amount_next_expense / 52), 2)
-            foo.set_expense(next_expense, amount_next_expense)
-            
-            clearing.clear()
+        try:
+            more_exp = input('Do you want to add an expense? (y/n): ')
+            if more_exp == 'y':
+                next_expense = input('What is this expense? ')
+                amount_next_expense = float(input('How much is this expense? $'))
+                frequency_of_expense = (input('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) ')).lower()
+                if frequency_of_expense == 'f':
+                    amount_next_expense = round((amount_next_expense / 2), 2)
+                elif frequency_of_expense == 'm':
+                    amount_next_expense = round((amount_next_expense / 4), 2)
+                elif frequency_of_expense == 's':
+                    amount_next_expense = round((amount_next_expense / 26), 2)
+                elif amount_next_expense == 'y':
+                    amount_next_expense = round((amount_next_expense / 52), 2)
+                foo.set_expense(next_expense, amount_next_expense)
+                
+                clearing.clear()
 
-            print(f'Current expenses include: ')
+                print(f'Current expenses include: ')
 
-            for i in range(len(foo.expense_description)):
-                print(foo.expense_description[i])
+                for i in range(len(foo.expense_description)):
+                    print(foo.expense_description[i])
 
-        elif more_exp == 'n':
-            break
+            elif more_exp == 'n':
+                break
+            else:
+                print('Please answer y or n.')
+        except ValueError:
+            pass
 
 def savings_calculator():
     savings_goal = float(input('What is your savings goal? $'))

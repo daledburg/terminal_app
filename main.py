@@ -3,13 +3,14 @@
 import pickle
 import os
 import clearing
+import time
 import budget
 import functions
 import login_function
 
 # Menu for budget start
 clearing.clear()
-print('Welcome to budget buddy! Your one best buddy for helping you save money!')
+print('Welcome to budget buddy! Your best buddy for helping you save money!')
 if_new = functions.menu()
 
 # Complete new budget
@@ -83,6 +84,8 @@ elif if_new == 'Existing User':
     elif saved_expenses == 'n':
         functions.adding_expenses(p1)
 
+    clearing.clear()
+
     spare = p1.spare_cash()
 # let user quit
 elif if_new == 'Quit':
@@ -91,6 +94,8 @@ elif if_new == 'Quit':
 
 # Display Table to show user breakdown of expenses against income and leftover money
 functions.display_table(p1)
+
+time.sleep(3)
 
 # What feature would they like to do next?
 print('There are more features to explore.')
