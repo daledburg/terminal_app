@@ -6,6 +6,7 @@ def menu():
     terminal_menu = TerminalMenu(options)
     menu_entry_index = terminal_menu.show()
     print(f'You have seleceted {options[menu_entry_index]}!')
+    return options[menu_entry_index]
 
 
 def pay_timetable():

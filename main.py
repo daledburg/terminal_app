@@ -6,21 +6,21 @@ from simple_term_menu import TerminalMenu
 import pickle
 import budget
 import functions
-# from functions import menu
-# from functions import pay_timetable
+
 
 # Set files to export data for later use
 filename = 'exp_desc'
 filename1 = 'exp_amount'
+existing_logins = 'ex_logins'
+logins_dict = {}
 
-functions.menu()
+if_new = functions.menu()
 
-your_name = input('Hello, What is your name? ')
-
-been_here_before = input("Welcome to your personal budgeting buddy. Have you been here before? (y/n) ")
+# your_name = input('Hello, What is your name? ')
 
 # Complete new budget
-if been_here_before == 'n':
+if if_new == 'Register':
+    your_name = input('Hello, What is your name? ')
 
     print(f'Hello there {your_name.capitalize()}, lets get down to saving you money!')
 
@@ -45,7 +45,7 @@ if been_here_before == 'n':
     pickle.dump(p1.expense_amount, outfile1)
     outfile1.close()
 # Use previously saved data to calculate data
-elif been_here_before == 'y':
+elif if_new == 'Existing User':
     print(f'Hello there {your_name.capitalize()}, lets get down to saving you money!')
 
     your_income = functions.pay_timetable()
