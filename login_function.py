@@ -61,6 +61,7 @@ def current_user():
             inp_user = input('Username: ')
             inp_pwd = input('Password: ')
             if inp_user in logins_diction and logins_diction[inp_user] == inp_pwd:
+                clearing.clear()
                 print('Login success!')
                 break
         except Exception:

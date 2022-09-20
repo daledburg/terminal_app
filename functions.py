@@ -17,9 +17,15 @@ def wrong_user_menu():
     menu_entry_index1 = terminal_menu1.show()
     return options1[menu_entry_index1]
 
+def further_features():
+    options2 = ['Savings Calculator', 'Debt Relief Calculator', 'Quit']
+    terminal_menu2 = TerminalMenu(options2)
+    menu_entry_index2 = terminal_menu2.show()
+    return options2[menu_entry_index2]
+
 def pay_timetable():
 #     your_income = 0
-    your_income = float(input("What is your income after tax? "))
+    your_income = float(input("What is your income after tax? $"))
     pay_time = input("Are you paid weekly, fortnightly, or monthly? (w/f/m) ")
     if pay_time == 'm':
         your_income = your_income / 4

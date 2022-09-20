@@ -81,13 +81,24 @@ functions.display_table(p1)
 
 # What feature would they like to do next?
 print('There are more features to explore.')
-feature_select = input('What feature would you like to move onto')
 # Savings goal breakdown
-gg = float(input('How much is your current savings goal? '))
-tt = float(input('How many months do you have to save? '))
+while True:
+    next_feature = functions.further_features()
+    clearing.clear()
+    if next_feature == 'Savings Calculator':
+        clearing.clear()
+        gg = float(input('How much is your current savings goal? $'))
+        clearing.clear()
+        tt = float(input('How many months do you have to save? '))
+        clearing.clear()
+        s1 = budget.SavingGoal(p1, p1, gg, tt)
 
-s1 = budget.SavingGoal(p1, p1, gg, tt)
+        s1.find_required_amount()
+        # Debt relief calcualtor
+    elif next_feature == 'Debt Relief Calculator':
+        print('debt relief')
+    elif next_feature == 'Quit':
+        clearing.clear()
+        print('Thank you for using this application, have a nice day!')
+        quit()    
 
-s1.find_required_amount()
-
-# Debt relief calcualtor
