@@ -19,16 +19,8 @@ class Budget:
     def spare_cash(self):
         self.spare = self.income - sum(self.expense_amount)
         print(f'Based on your entered expenses, you have ${self.spare} left to spend every week!')
+        print('These expense amounts will be stored in your account.')
+        return self.spare
 
-# Child class for savings goal calculations
 
-class SavingGoal(Budget):
-    def __init__(self, name, income, savings_goal, savings_time):
-        super().__init__(name, income=income)
-        self.savings_goal = savings_goal
-        self.savings_time = savings_time
-        # contribution_needed = 0
 
-    def find_required_amount(self):
-        contribution_needed = round(((self.savings_goal / self.savings_time) / 4), 2)
-        print(f'You need to contribute ${contribution_needed} extra per week to reach your goal.')
