@@ -4,15 +4,19 @@
 from prettytable import PrettyTable
 from simple_term_menu import TerminalMenu
 import pickle
+import os
 import budget
 import functions
-
+import login_function
 
 # Set files to export data for later use
-filename = 'exp_desc'
-filename1 = 'exp_amount'
+# username = ''
+# filename = 'exp_desc' + str(username)
+# filename1 = 'exp_amount' + str(username)
 existing_logins = 'ex_logins'
-logins_dict = {}
+
+# logins_filename = 'logins_filename.dat'
+# logins_diction = {}
 
 if_new = functions.menu()
 
@@ -20,9 +24,13 @@ if_new = functions.menu()
 
 # Complete new budget
 if if_new == 'Register':
-    your_name = input('Hello, What is your name? ')
+    username = login_function.new_user()
 
-    print(f'Hello there {your_name.capitalize()}, lets get down to saving you money!')
+    your_name = username
+    print(f'Hello there {your_name}, lets get down to saving you money!')
+
+    filename = ('exp_desc' + str(username))
+    filename1 = ('exp_amount' + str(username))
 
     your_income = functions.pay_timetable()
 
@@ -46,8 +54,9 @@ if if_new == 'Register':
     outfile1.close()
 # Use previously saved data to calculate data
 elif if_new == 'Existing User':
-    print(f'Hello there {your_name.capitalize()}, lets get down to saving you money!')
-
+    username = login_function.current_user()
+    your_name = username
+    print(f'Hello there {your_name}, lets get down to saving you money!')
     your_income = functions.pay_timetable()
     p1 = budget.Budget(your_name, your_income)
     
