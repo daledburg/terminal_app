@@ -17,7 +17,6 @@ class Budget:
         self.total_expenses = self.total_expenses + new_exp_amount
 
     def spare_cash(self):
-        print(self.income)
         self.spare = self.income - sum(self.expense_amount)
         print(f'Based on your entered expenses, you have ${self.spare} left to spend every week!')
 

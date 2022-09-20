@@ -1,5 +1,6 @@
 from simple_term_menu import TerminalMenu
 from prettytable import PrettyTable
+import clearing
 
 # Menu configuration
 def menu():
@@ -9,6 +10,12 @@ def menu():
     print(f'You have seleceted {options[menu_entry_index]}!')
     return options[menu_entry_index]
 
+
+def wrong_user_menu():
+    options1 = ['Try Again?', 'Quit']
+    terminal_menu1 = TerminalMenu(options1)
+    menu_entry_index1 = terminal_menu1.show()
+    return options1[menu_entry_index1]
 
 def pay_timetable():
 #     your_income = 0
@@ -40,6 +47,7 @@ def display_table(x):
     # print(expense_table.get_string(title='Income/Expense Breakdown Table'))
 
     table_print = input('Would you like to see a breakdown of your entered informtaion? (y/n) ')
+    clearing.clear()
     if table_print == 'y':
         print('This is a breakdown of your current expenses.')
         print(expense_table.get_string(title='Income/Expense Breakdown Table'))

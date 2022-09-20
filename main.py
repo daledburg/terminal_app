@@ -8,8 +8,11 @@ import os
 import budget
 import functions
 import login_function
+import clearing
 
 # Menu for budget start
+clearing.clear()
+print('Welcome to budget buddy! Your one stop application for helping you to save money!')
 if_new = functions.menu()
 
 # Complete new budget
@@ -24,6 +27,8 @@ if if_new == 'Register':
 
     your_income = functions.pay_timetable()
 
+    clearing.clear()
+
     p1 = budget.Budget(your_name, your_income)
 
     while True:
@@ -32,6 +37,8 @@ if if_new == 'Register':
             p1.set_expense((input('What is this expense? ')), (float(input('How much is this expense? '))))
         elif more_exp == 'n':
             break
+
+    clearing.clear()
 
     p1.spare_cash()
 
@@ -46,11 +53,13 @@ if if_new == 'Register':
 elif if_new == 'Existing User':
     username = login_function.current_user()
     your_name = username
-    print(f'Hello there {your_name}, lets get down to saving you money!')
+    # print(f'Hello there {your_name}, lets get down to saving you money!')
     
     filename = ('exp_desc' + str(username))
     filename1 = ('exp_amount' + str(username))
-# existing_logins = 'ex_logins'
+    
+    print(f'Hello there {your_name}, lets get down to saving you money!')
+
     your_income = functions.pay_timetable()
     p1 = budget.Budget(your_name, your_income)
     
