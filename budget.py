@@ -1,7 +1,6 @@
 # from prettytable import PrettyTable
 
 # Main Budgeting class to find simple budget
-
 class Budget:
     def __init__(self, name, income):
         self.name = name

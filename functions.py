@@ -11,8 +11,11 @@ import clearing
 current_date = date.today()
 current_date = str(current_date)
 current_date_split = current_date.split('-')
-current_year_int = int(current_date_split[0])
-current_month_int = int(current_date_split[1])
+
+current_date_split = [int(i) for i in current_date_split]
+current_date_split = current_date_split[0:2]
+# for i in current_date_split[:]:
+#     current_date_split = int(current_date_split[i])
 
 # Menu configuration
 def menu():
@@ -36,31 +39,27 @@ def further_features():
     menu_entry_index2 = terminal_menu2.show()
     return options2[menu_entry_index2]
 
-# Calculates income per week including error handling
-def pay_timetable():
+def pay_timetable(type_str, inc_value, err_str):
     while True:
         try:
-            your_income = float(input("What is your income after tax? $"))
-            if your_income > 0.0:
+            pay_time = input(type_str)
+            if pay_time == 'm':
+                inc_value = round((inc_value / 4), 2)
+                return inc_value
+            elif pay_time == 'f':
+                inc_value = round((inc_value / 2), 2)
+                return inc_value
+            elif pay_time == 'w':
+                return inc_value
+            elif pay_time == 's':
+                inc_value = round((inc_value / 26), 2)
+                break
+            elif pay_time == 'a':
+                inc_value = round((inc_value / 52), 2)
                 break
         except ValueError:
             pass
-        print('Your income must be a positve number')
-
-    while True:
-        try:
-            pay_time = input("Are you paid weekly, fortnightly, or monthly? (w/f/m) ")
-            if pay_time == 'm':
-                your_income = your_income / 4
-                return your_income
-            elif pay_time == 'f':
-                your_income = your_income / 2
-                return your_income
-            elif pay_time == 'w':
-                return your_income
-        except ValueError:
-            pass
-        print('Please enter either w, f or m')
+        print(err_str)
 
 # Table of income, expenses and left over money
 def display_table(x):
@@ -96,141 +95,55 @@ def display_table(x):
         print('Please enter y or n')
 
 # Savings Calculator feature function
-def savings_calculator():
-    while True:
-        try:
-            savings_goal = float(input('What is your savings goal? $'))
-            if savings_goal > 0.0:
-                break
-        except ValueError:
-            pass
-        print('Your goal must be a positve number')
+def savings_calculator(goal_amount, month_int, year_int):
+    months_to_pay = (((year_int - current_date_split[0]) * 12) + (month_int - current_date_split[1]))
+    contribution_needed = round(((goal_amount / months_to_pay) / 4), 2)
+    print(f'You will need to hide away ${contribution_needed} each week to reach your goal!')
 
+# Function to get future date for calculators
+def future_date(inp_str):
     while True:
         try:
-            paid_date1 = input('When do you want to save this by? format: mm/yyyy ')
-            paid_date_ints1 = paid_date1.split('/')
-            if len(paid_date_ints1) == 2:
-                month_int1 = int(paid_date_ints1[0])
-                year_int1 = int(paid_date_ints1[1])
-                if month_int1 > 0 and month_int1 <= 12:
-                    if year_int1 > 2021 and year_int1 <= 2099:    
-                        if year_int1 > current_year_int:
-                            break
-                        elif year_int1 == current_year_int:
-                            if month_int1 > current_month_int:
-                                break
+            paid_date = input(f'When do you want to {inp_str} by? format: mm/yyyy ')
+            paid_date_ints = paid_date.split('/')
+
+            if len(paid_date_ints) == 2:
+                paid_date_ints = [int(i) for i in paid_date_ints]
+                if paid_date_ints[0] > 0 and paid_date_ints[0] <= 12:
+                    if paid_date_ints[1] > 2021 and paid_date_ints[1] <= 2099:    
+                        if paid_date_ints[1] > current_date_split[0]:
+                            return paid_date_ints
+                        elif paid_date_ints[1] == current_date_split[0]:
+                            if paid_date_ints[0] > current_date_split[1]:
+                                return paid_date_ints
         except ValueError:
             pass
         print('Enter future date in correct format: mm/yyyy ')
-
-    months_to_pay1 = ((year_int1 - current_year_int) * 12) + (month_int1 - current_month_int)
-
-    contribution_needed1 = round(((savings_goal / months_to_pay1) / 4), 2)
-
-    print(f'You will need to hide away ${contribution_needed1} each week to reach your goal!')
 
 # Feature of debt calculator function
-def debt_calculator():
-    while True:
-        try:
-            balance_owed = float(input('What is the balance owed on the outstanding debt? $'))
-            if balance_owed > 0.0:
-                break
-        except ValueError:
-            pass
-        print('Your balance must be a positve number')
-
-    while True:
-        try:
-            current_contribution = float(input('What is your current regualar contribution to this debt? $'))
-            if current_contribution > 0.0 and current_contribution < balance_owed:
-                break
-        except ValueError:
-            pass
-        print('Your current contribution must be a positve number and less than balance owed.')
-
-    while True:
-        try:
-            frequency_of_contribution = (input('Do you pay this expense weekly, fortnightly, monthly? (w/f/m) ')).lower()
-            if frequency_of_contribution == 'f':
-                current_contribution = round((current_contribution / 2), 2)
-                break
-            elif frequency_of_contribution == 'm':
-                current_contribution = round((current_contribution / 4), 2)
-                break
-            elif frequency_of_contribution == 'w':
-                break
-        except ValueError:
-            pass
-        print('Please enter either w, f or m')
-
-    while True:
-        try:
-            paid_date = input('When do you want to pay this off by? format: mm/yyyy ')
-            paid_date_ints = paid_date.split('/')
-            if len(paid_date_ints) == 2:
-                month_int = int(paid_date_ints[0])
-                year_int = int(paid_date_ints[1])
-                if month_int > 0 and month_int <= 12:
-                    if year_int > 2021 and year_int <= 2099:    
-                        if year_int > current_year_int:
-                            break
-                        elif year_int == current_year_int:
-                            if month_int > current_month_int:
-                                break
-        except ValueError:
-            pass
-        print('Enter future date in correct format: mm/yyyy ')
-
-    months_to_pay = ((year_int - current_year_int) * 12) + (month_int - current_month_int)
-
-    contribution_needed = round(((balance_owed / months_to_pay) / 4), 2)
-
-    contribution_diff = round((contribution_needed - current_contribution), 2)
-
-    print(f'You currently contribute ${current_contribution} each week.')
+def debt_calculator(debt_amount, month_int, year_int, contribution):
+    months_to_pay = ((year_int - current_date_split[0]) * 12) + (month_int - current_date_split[1])
+    contribution_needed = round(((debt_amount / months_to_pay) / 4), 2)
+    contribution_diff = round((contribution_needed - contribution), 2)
+    print(f'You currently contribute ${contribution} each week.')
     print(f'To meet your goal you need to contribute ${contribution_needed} per week')
     print(f'That is a difference of ${contribution_diff}')
+
+# input function
+def input_functions(input_type_str, err_type_str):
+    while True:
+        try:
+            return_var = input(input_type_str)
+            if return_var > 0:
+                return return_var
+        except ValueError:
+            pass
+        print(err_type_str)
 
 # Function for adding expenses to new or existing users
 def adding_expenses(foo):
     while True:
         try:
-            more_exp = input('Do you want to add an expense? (y/n): ')
-            if more_exp == 'y':
-                next_expense = input('What is this expense? ')
-                while True:
-                    try:
-                        amount_next_expense = float(input('How much is this expense? $'))
-                        if amount_next_expense > 0:
-                            break
-                    except ValueError:
-                        pass
-                    print('Expense amount must be number greater than 0')
-                
-                while True:
-                    try:
-                        frequency_of_expense = (input('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) ')).lower()
-                        if frequency_of_expense == 'f':
-                            amount_next_expense = round((amount_next_expense / 2), 2)
-                            break
-                        elif frequency_of_expense == 'm':
-                            amount_next_expense = round((amount_next_expense / 4), 2)
-                            break
-                        elif frequency_of_expense == 's':
-                            amount_next_expense = round((amount_next_expense / 26), 2)
-                            break
-                        elif frequency_of_expense == 'a':
-                            amount_next_expense = round((amount_next_expense / 52), 2)
-                            break
-                        elif frequency_of_expense == 'w':
-                            amount_next_expense = round(amount_next_expense, 2)
-                            break
-                    except ValueError:
-                        pass
-                    print('Please enter either w, f, m, s or a')
-
                 foo.set_expense(next_expense, amount_next_expense)
 
                 clearing.clear()
