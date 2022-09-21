@@ -3,7 +3,7 @@ import functions
 
 inputs = iter([5, 10, 1055, 25000, -5, -500, 0])
 inputs1 = iter(['10/2023', '12/2043', '08/2025', '05/2015', '10/2100', '102023', 'ASD'])
-inputs2 = iter(['y', 'n', 'Y', 'N'])
+inputs2 = iter(['w', 'f', 'm', 's', 'a', 'ds', '122', 'week', 'month'])
 
 def fake_input(prompt):
     return next(inputs)
@@ -61,7 +61,23 @@ class TestFutureDate:
         with pytest.raises(Exception):
             functions.future_date('inpstr')
 
-class TestExpenFunct:
-    def test_valid_expen_funct(self, monkeypatch):
+class TestPayTimetable:
+    def test_valid_pay_timetable(self, monkeypatch):
         monkeypatch.setattr('builtins.input', fake_input2)
-        
+        assert functions.pay_timetable('inputstring', 1000, 'errorstring') == 1000.0
+        assert functions.pay_timetable('inputstring', 1000, 'errorstring') == 500.0
+        assert functions.pay_timetable('inputstring', 1000, 'errorstring') == 250.0
+        assert functions.pay_timetable('inputstring', 1000, 'errorstring') == 38.46
+        assert functions.pay_timetable('inputstring', 1000, 'errorstring') == 19.23
+
+    def test_invalid_pay_timetable(self, monkeypatch):
+        monkeypatch.setattr('builtins.input', fake_input2)
+        with pytest.raises(Exception):
+            functions.pay_timetable('inputstring', 1000, 'errorstring')
+        with pytest.raises(Exception):
+            functions.pay_timetable('inputstring', 1000, 'errorstring')
+        with pytest.raises(Exception):
+            functions.pay_timetable('inputstring', 1000, 'errorstring')
+        with pytest.raises(Exception):
+            functions.pay_timetable('inputstring', 1000, 'errorstring')
+            

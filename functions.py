@@ -54,10 +54,10 @@ def pay_timetable(type_str, inc_value, err_str):
                 return inc_value
             elif pay_time == 's':
                 inc_value = round((inc_value / 26), 2)
-                break
+                return inc_value
             elif pay_time == 'a':
                 inc_value = round((inc_value / 52), 2)
-                break
+                return inc_value
         except ValueError:
             pass
         print(err_str)
