@@ -88,7 +88,7 @@ def debt_calculator():
                 break
         except ValueError:
             pass
-        print('Your income must be a positve number')
+        print('Your balance must be a positve number')
     
     while True:
         try:
@@ -184,13 +184,16 @@ def adding_expenses(foo):
             pass
 
 def savings_calculator():
-    savings_goal = float(input('What is your savings goal? $'))
+    while True:
+        try:    
+            savings_goal = float(input('What is your savings goal? $'))
+            if savings_goal > 0.0:
+                break
+        except ValueError:
+            pass
+        print('Your goal must be a positve number')
 
     paid_date1 = input('When do you want to save this by? format: mm/yyyy ')
-    paid_date_ints1 = paid_date1.split('/')
-
-    month_int1 = int(paid_date_ints1[0])
-    year_int1 = int(paid_date_ints1[1])
 
     current_date1 = date.today()
 
@@ -200,6 +203,47 @@ def savings_calculator():
 
     current_year_int1 = int(current_date_split1[0])
     current_month_int1 = int(current_date_split1[1])
+
+    while True:
+        try:
+            paid_date1 = input('When do you want to save this by? format: mm/yyyy ')
+            paid_date_ints1 = paid_date1.split('/')
+            if len(paid_date_ints1) == 2:
+                month_int1 = int(paid_date_ints1[0])
+                year_int1 = int(paid_date_ints1[1])
+                if month_int1 > 0 and month_int1 <= 12:
+                    if year_int1 > 2021 and year_int1 <= 2099:    
+                        if year_int1 > current_year_int1:
+                            break
+                        elif year_int1 == current_year_int1:
+                            if month_int1 > current_month_int1:
+                                break
+        except ValueError:
+            pass
+        print('Enter future date in correct format: mm/yyyy ')
+
+    # while True:
+    #     try:
+    #         month_int1 = int(paid_date_ints1[0])
+    #         year_int1 = int(paid_date_ints1[1])
+    #         if month_int1 > 0 and month_int1 <= 12:
+    #             break
+    #     except ValueError:
+    #         pass
+    #     print('Month must be whole number between 0 and 12 inclusive')
+
+    # while True:
+    #     try:
+    #         if year_int1 > 2021 and year_int1 <= 2099:
+    #             if year_int1 > current_year_int1:
+    #                 break
+    #             elif year_int1 == current_year_int1:
+    #                 if month_int1 > current_month_int1:
+    #                     break
+    #     except ValueError:
+    #         pass
+    #     print('Please enter future date in correct format: ')
+
 
     months_to_pay1 = ((year_int1 - current_year_int1) * 12) + (month_int1 - current_month_int1)
 
