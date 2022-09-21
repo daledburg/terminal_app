@@ -6,6 +6,7 @@ from datetime import date
 from simple_term_menu import TerminalMenu
 from prettytable import PrettyTable
 import clearing
+import budget
 
 # Current Date info
 current_date = date.today()
@@ -133,7 +134,7 @@ def debt_calculator(debt_amount, month_int, year_int, contribution):
 def input_functions(input_type_str, err_type_str):
     while True:
         try:
-            return_var = input(input_type_str)
+            return_var = float(input(input_type_str))
             if return_var > 0:
                 return return_var
         except ValueError:
@@ -141,22 +142,12 @@ def input_functions(input_type_str, err_type_str):
         print(err_type_str)
 
 # Function for adding expenses to new or existing users
-def adding_expenses(foo):
-    while True:
-        try:
-                foo.set_expense(next_expense, amount_next_expense)
-
-                clearing.clear()
-
-                print('Current expenses include: ')
-
-                for i in range(len(foo.expense_description)):
-                        print(foo.expense_description[i])
-            elif more_exp == 'n':
-                break
-        except ValueError:
-            pass
-        print('Please enter y or n')
+def print_exp(foo, next_expense, amount_next_expense):
+    foo.set_expense(next_expense, amount_next_expense)
+    clearing.clear()
+    print('Current expenses include: ')
+    for i in range(len(foo.expense_description)):
+        print(foo.expense_description[i])
 
 def saving_expenses(username, budget_instance):
     filename = ('exp_desc' + str(username) + '.dat')

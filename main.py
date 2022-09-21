@@ -11,11 +11,15 @@ import login_function
 clearing.clear()
 print('Welcome to budget buddy! Your best buddy for helping you save money!')
 
+inc_str = "What is your income after tax? $"
 exp_str = 'Do you want to add an expense? (y/n): '
+exp_amnt_str = 'How much is this expense? $'
 not_positive_err = 'Amount entered must be greater than 0'
+inc_pay_str = 'How often are you paid? (w/f/m) '
 inc_err_str = 'Please enter w, f, or m'
 exp_ttable = 'Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) '
- 
+exp_ttable_err = 'Please enter w, f, m, s or a'
+pay_inc_str = 'How frequently are you paid? (w/f/m): '
 # Handle error if no users created yet
 while True:
     try:
@@ -24,16 +28,9 @@ while True:
             username = login_function.new_user()
             print(f'Hello there {username}, lets get down to saving you money!')
 
-            while True:
-                try:
-                    your_income = float(input("What is your income after tax? $"))
-                    if your_income > 0.0:
-                        break
-                except ValueError:
-                    pass
-                print('Your income must be a positve number')
+            your_income = functions.input_functions(inc_str, not_positive_err)
 
-            your_income = functions.pay_timetable(your_income)
+            your_income = functions.pay_timetable(inc_pay_str, your_income, inc_err_str)
 
             functions.save_income(username, your_income)
             clearing.clear()
@@ -42,9 +39,15 @@ while True:
                 try:
                     more_exp = input('Do you want to add an expense? (y/n): ')
                     if more_exp == 'y':
-                        amount_next_expense = functions.input_functions(exp_str, not_positive_err)
-                        amount_next_expense = functions.pay_timetable(exp_ttable, amount_next_expense, 'Please enter w, f, m, s or a')            functions.adding_expenses(p1)
-                        
+                        next_expense = input('Provide a description of this expense: ')
+                        amount_next_expense = functions.input_functions(exp_amnt_str, not_positive_err)
+                        amount_next_expense = functions.pay_timetable(exp_ttable, amount_next_expense, exp_ttable_err)
+                        functions.print_exp(p1, next_expense, amount_next_expense)
+                    elif more_exp == 'n':
+                        break
+                except ValueError:
+                    pass
+                print('Please enter y or n')
             clearing.clear()
             spare = p1.spare_cash()
             functions.saving_expenses(username, p1)
@@ -58,28 +61,20 @@ while True:
                 while True:
                     try:
                         saved_income = input('Would you like to use your saved income? (y/n): ')
-                        pay_inc_str = 'How frequently are you paid? (w/f/m): '
-                        
                         if saved_income == 'y':
                             your_income = functions.open_income(username)
                             break
                         elif saved_income == 'n':
-                            while True:
-                                try:
-                                    your_income = float(input("What is your income after tax? $"))
-                                    if your_income > 0.0:
-                                        break
-                                except ValueError:
-                                    pass
-                                print('Your income must be a positve number')
+                            your_income = functions.input_functions(inc_str, not_positive_err)
+                            your_income = functions.pay_timetable(inc_pay_str, your_income, inc_err_str)
 
-                            your_income = functions.pay_timetable(pay_inc_str, your_income, inc_err_str)
                             # Create new Saved income file
                             functions.save_income(username, your_income)
                             break
                     except ValueError:
                         pass
                     print('Please enter y or n')
+
                 p1 = budget.Budget(username, your_income)
                 # Finding the users expenses
                 while True:
@@ -89,14 +84,27 @@ while True:
                             functions.open_expenses(username, p1)
                             break
                         elif saved_expenses == 'n':
-
-                            functions.adding_expenses(p1)
+                            clearing.clear()
+                            while True:
+                                try:
+                                    more_exp = input('Do you want to add an expense? (y/n): ')
+                                    if more_exp == 'y':
+                                        next_expense = input('Provide a description of this expense: ')
+                                        amount_next_expense = functions.input_functions(exp_amnt_str, not_positive_err)
+                                        amount_next_expense = functions.pay_timetable(exp_ttable, amount_next_expense, exp_ttable_err)
+                                        functions.print_exp(p1, next_expense, amount_next_expense)
+                                    elif more_exp == 'n':
+                                        break
+                                except ValueError:
+                                    pass
+                                print('Please enter y or n')
                             break
                     except ValueError:
                         pass
                     print('Please enter y or n')
                 clearing.clear()
                 spare = p1.spare_cash()
+                functions.saving_expenses(username, p1)
                 break
         # let user quit
         elif if_new == 'Quit':
