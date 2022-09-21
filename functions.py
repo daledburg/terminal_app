@@ -1,3 +1,5 @@
+import pickle
+import os
 from simple_term_menu import TerminalMenu
 from prettytable import PrettyTable
 import clearing
@@ -147,6 +149,7 @@ def debt_calculator():
     print(f'You currently contribute ${current_contribution} each week.')
     print(f'To meet your goal you need to contribute ${contribution_needed} per week')
     print(f'That is a difference of ${contribution_diff}')
+
 # Function for adding expenses to new or existing users
 def adding_expenses(foo):
     while True:
@@ -204,3 +207,75 @@ def savings_calculator():
 
     print(f'You will need to hide away ${contribution_needed1} each week to reach your goal!')
 
+def saving_expenses(username, budget_instance):
+    filename = ('exp_desc' + str(username) + '.dat')
+    filename1 = ('exp_amount' + str(username) + '.dat')
+    # filename2 = ('income_amount' + str(username) + '.dat')
+
+    outfile = open(filename, 'wb')
+    pickle.dump(budget_instance.expense_description, outfile)
+    outfile.close()
+
+    outfile1 = open(filename1, 'wb')
+    pickle.dump(budget_instance.expense_amount, outfile1)
+    outfile1.close()
+
+    # outfile2 = open(filename2, 'wb')
+    # pickle.dump(income_save, outfile2)
+    # outfile2.close()
+
+def save_income(username, income_save):
+    filename2 = ('income_amount' + str(username) + '.dat')
+
+    outfile2 = open(filename2, 'wb')
+    pickle.dump(income_save, outfile2)
+    outfile2.close()
+
+def open_expenses(username, budget_instance):
+    filename = ('exp_desc' + str(username) + '.dat')
+    filename1 = ('exp_amount' + str(username) + '.dat')
+    # filename2 = ('income_amount' + str(username) + '.dat')
+
+    infile = open(filename, 'rb')
+    budget_instance.expense_description = pickle.load(infile)
+    infile.close()
+
+    infile1 = open(filename1, 'rb')
+    budget_instance.expense_amount = pickle.load(infile1)
+    infile1.close()
+
+def open_income(username):
+    filename2 = ('income_amount' + str(username) + '.dat')
+
+    infile2 = open(filename2, 'rb')
+    income_save = pickle.load(infile2)
+    infile2.close()
+
+    return income_save
+
+def delete_user(username):
+    filename = ('exp_desc' + str(username) + '.dat')
+    filename1 = ('exp_amount' + str(username) + '.dat')
+    filename2 = ('income_amount' + str(username) + '.dat')
+    user_delete = input('Are you sure you want to delete this user? (y/n): ')
+    if user_delete == 'y':
+        with open('logins_filename.dat', 'rb') as rfp:
+            logins_diction = pickle.load(rfp)
+            logins_diction.pop(username)
+        print(logins_diction)
+        with open('logins_filename.dat', 'wb') as wfp:
+            pickle.dump(logins_diction, wfp)
+
+        with open('logins_filename.dat', 'rb') as rfp:
+            logins_diction = pickle.load(rfp)
+            
+        os.remove(filename)
+        os.remove(filename1)
+        os.remove(filename2)
+
+        print('User deleted successfully, now exiting.')
+        quit()
+
+    if user_delete == 'n':
+        print('Profile not deleted, now exiting.')
+        quit()
