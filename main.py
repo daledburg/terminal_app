@@ -12,70 +12,142 @@ print('Welcome to budget buddy! Your best buddy for helping you save money!')
 
 time.sleep(1.5)
 
-if_new = functions.menu()
-
-# Complete new budget
-if if_new == 'Register':
-    username = login_function.new_user()
-
-    print(f'Hello there {username}, lets get down to saving you money!')
-
-    your_income = functions.pay_timetable()
-
-    functions.save_income(username, your_income)
-
-    clearing.clear()
-
-    p1 = budget.Budget(username, your_income)
-
-    functions.adding_expenses(p1)
-
-    clearing.clear()
-
-    spare = p1.spare_cash()
-
-    functions.saving_expenses(username, p1)
-
+while True:
+    try:
+        if_new = functions.menu()
+        if if_new == 'Register':
+            username = login_function.new_user()
+            print(f'Hello there {username}, lets get down to saving you money!')
+            your_income = functions.pay_timetable()
+            functions.save_income(username, your_income)
+            clearing.clear()
+            p1 = budget.Budget(username, your_income)
+            functions.adding_expenses(p1)
+            clearing.clear()
+            spare = p1.spare_cash()
+            functions.saving_expenses(username, p1)
+            break
 # Use previously saved data to calculate data
-elif if_new == 'Existing User':
-    username = login_function.current_user()
-
-    print(f'Hello there {username}, lets get down to saving you money!')
-    
-    # Finding the income of user
-    saved_income = input('Would you like to use your saved income? (y/n): ')
-    if saved_income == 'n':
-        your_income = functions.pay_timetable()
-        # Create new Saved income file
-        functions.save_income(username, your_income)
-
-    elif saved_income == 'y':
-        your_income = functions.open_income(username)
-
-    p1 = budget.Budget(username, your_income)
-
-    # Finding the users expenses 
-    saved_expenses = input('Would you like to use your saved expenses? (y/n): ')
-
-    if saved_expenses == 'y':
-        functions.open_expenses(username, p1)
-
-    elif saved_expenses == 'n':
-        functions.adding_expenses(p1)
-
-    clearing.clear()
-
-    spare = p1.spare_cash()
-
+        elif if_new == 'Existing User':
+            # login_function.any_current_users()
+            # if login_success is False:
+            #     break
+            if login_function.any_current_users() is True:
+                username = login_function.current_user()
+                print(f'Hello there {username}, lets get down to saving you money!')
+                # Finding the income of user
+                while True:
+                    try:
+                        saved_income = input('Would you like to use your saved income? (y/n): ')
+                        if saved_income == 'y':
+                            your_income = functions.open_income(username)
+                            break
+                        elif saved_income == 'n':
+                            your_income = functions.pay_timetable()
+                            # Create new Saved income file
+                            functions.save_income(username, your_income)
+                            break
+                    except ValueError:
+                        pass
+                    print('Please enter y or n')
+                p1 = budget.Budget(username, your_income)
+                # Finding the users expenses 
+                while True:
+                    try:
+                        saved_expenses = input('Would you like to use your saved expenses? (y/n): ')
+                        if saved_expenses == 'y':
+                            functions.open_expenses(username, p1)
+                            break
+                        elif saved_expenses == 'n':
+                            functions.adding_expenses(p1)
+                            break
+                    except ValueError:
+                        pass
+                    print('Please enter y or n')
+                clearing.clear()
+                spare = p1.spare_cash()
+                break
 # let user quit
-elif if_new == 'Quit':
-    print('Goodbye!')
-    quit()
+        elif if_new == 'Quit':
+            print('Goodbye!')
+            quit()
+    except Exception:
+        pass
+    print('No current users, please register')
+
+
+# # Complete new budget
+# if if_new == 'Register':
+#     username = login_function.new_user()
+
+#     print(f'Hello there {username}, lets get down to saving you money!')
+
+#     your_income = functions.pay_timetable()
+
+#     functions.save_income(username, your_income)
+
+#     clearing.clear()
+
+#     p1 = budget.Budget(username, your_income)
+
+#     functions.adding_expenses(p1)
+
+#     clearing.clear()
+
+#     spare = p1.spare_cash()
+
+#     functions.saving_expenses(username, p1)
+
+# # Use previously saved data to calculate data
+# elif if_new == 'Existing User':
+#     login_function.any_current_users()
+
+#     username = login_function.current_user()
+
+#     print(f'Hello there {username}, lets get down to saving you money!')
+
+#     # Finding the income of user
+#     while True:
+#         try:
+#             saved_income = input('Would you like to use your saved income? (y/n): ')
+#             if saved_income == 'y':
+#                 your_income = functions.open_income(username)
+#                 break
+#             elif saved_income == 'n':
+#                 your_income = functions.pay_timetable()
+#                 # Create new Saved income file
+#                 functions.save_income(username, your_income)
+#                 break
+#         except ValueError:
+#             pass
+#         print('Please enter y or n')
+    
+#     p1 = budget.Budget(username, your_income)
+
+#     # Finding the users expenses 
+#     while True:
+#         try:
+#             saved_expenses = input('Would you like to use your saved expenses? (y/n): ')
+#             if saved_expenses == 'y':
+#                 functions.open_expenses(username, p1)
+#                 break
+#             elif saved_expenses == 'n':
+#                 functions.adding_expenses(p1)
+#                 break
+#         except ValueError:
+#             pass
+#         print('Please enter y or n')
+
+#     clearing.clear()
+
+#     spare = p1.spare_cash()
+# # let user quit
+# elif if_new == 'Quit':
+#     print('Goodbye!')
+#     quit()
 
 # Display Table to show user breakdown of expenses against income and leftover money
 functions.display_table(p1)
-
-time.sleep(1.5)
 
 # What feature would they like to do next?
 print('There are more features to explore.')

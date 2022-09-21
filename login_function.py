@@ -1,3 +1,4 @@
+# Login functionality
 import pickle
 import os
 import functions
@@ -43,6 +44,22 @@ def new_user():
         logins_diction = pickle.load(rfp)
 
     return username
+# Function to check if any current users
+def any_current_users():
+    logins_filename = 'logins_filename.dat'
+    logins_diction = {}
+    with open(logins_filename, 'rb') as rfp:
+        logins_diction = pickle.load(rfp)
+
+    current_keys = list(dict.keys(logins_diction))
+    if len(current_keys) == 0:
+        # print('No current logins found')
+        return False
+    else:
+        print('Current Users: ')
+        for i in range(len(current_keys)):
+            print(current_keys[i])
+        return True
 
 # Recall current users login
 def current_user():
@@ -51,13 +68,15 @@ def current_user():
     with open(logins_filename, 'rb') as rfp:
         logins_diction = pickle.load(rfp)
 
-    current_keys = list(dict.keys(logins_diction))
+    # current_keys = list(dict.keys(logins_diction))
+    # if len(current_keys) == 0:
+    #     print('No current logins found')
+    # else:
+    #     print('Current Users: ')
 
-    print('Current Users: ')
+    # for i in range(len(current_keys)):
+    #     print(current_keys[i])
 
-    for i in range(len(current_keys)):
-        print(current_keys[i])
-    
     while True:
         try:
             inp_user = input('Username: ')

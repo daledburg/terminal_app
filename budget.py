@@ -18,7 +18,10 @@ class Budget:
 
     def spare_cash(self):
         self.spare = self.income - sum(self.expense_amount)
-        print(f'Based on your entered expenses, you have ${self.spare} left to spend every week!')
+        if self.spare < 0:
+            print(f'You currently earn less than you spend by ${-(self.spare)}, time to cut back!')
+        elif self.spare >= 0:
+            print(f'Based on your entered expenses, you have ${self.spare} left to spend every week!')
         print('These expense amounts will be stored in your account.')
         return self.spare
 

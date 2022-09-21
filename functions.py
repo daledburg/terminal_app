@@ -1,10 +1,18 @@
 # Functions module
 import pickle
 import os
+import time
 from datetime import date
 from simple_term_menu import TerminalMenu
 from prettytable import PrettyTable
 import clearing
+
+# Current Date info
+current_date = date.today()
+current_date = str(current_date)
+current_date_split = current_date.split('-')
+current_year_int = int(current_date_split[0])
+current_month_int = int(current_date_split[1])
 
 # Menu configuration
 def menu():
@@ -71,13 +79,56 @@ def display_table(x):
     expense_table.align['Expense Description'] = 'r'
     # print(expense_table.get_string(title='Income/Expense Breakdown Table'))
 
-    table_print = input('Would you like to see a breakdown of your entered informtaion? (y/n) ')
-    clearing.clear()
-    if table_print == 'y':
-        print('This is a breakdown of your current expenses.')
-        print(expense_table.get_string(title='Income/Expense Breakdown Table'))
-    elif table_print == 'n':
-        print('Okay, lets continue then.')
+    while True:
+        try:
+            table_print = input('Would you like to see a breakdown of your entered informtaion? (y/n) ')
+            clearing.clear()
+            if table_print == 'y':
+                print('This is a breakdown of your current expenses.')
+                print(expense_table.get_string(title='Income/Expense Breakdown Table'))
+                time.sleep(2)
+                break
+            elif table_print == 'n':
+                print('Okay, lets continue then.')
+                break
+        except ValueError:
+            pass
+        print('Please enter y or n')
+
+# Savings Calculator feature function
+def savings_calculator():
+    while True:
+        try:
+            savings_goal = float(input('What is your savings goal? $'))
+            if savings_goal > 0.0:
+                break
+        except ValueError:
+            pass
+        print('Your goal must be a positve number')
+
+    while True:
+        try:
+            paid_date1 = input('When do you want to save this by? format: mm/yyyy ')
+            paid_date_ints1 = paid_date1.split('/')
+            if len(paid_date_ints1) == 2:
+                month_int1 = int(paid_date_ints1[0])
+                year_int1 = int(paid_date_ints1[1])
+                if month_int1 > 0 and month_int1 <= 12:
+                    if year_int1 > 2021 and year_int1 <= 2099:    
+                        if year_int1 > current_year_int:
+                            break
+                        elif year_int1 == current_year_int:
+                            if month_int1 > current_month_int:
+                                break
+        except ValueError:
+            pass
+        print('Enter future date in correct format: mm/yyyy ')
+
+    months_to_pay1 = ((year_int1 - current_year_int) * 12) + (month_int1 - current_month_int)
+
+    contribution_needed1 = round(((savings_goal / months_to_pay1) / 4), 2)
+
+    print(f'You will need to hide away ${contribution_needed1} each week to reach your goal!')
 
 # Feature of debt calculator function
 def debt_calculator():
@@ -113,15 +164,6 @@ def debt_calculator():
         except ValueError:
             pass
         print('Please enter either w, f or m')
-
-    current_date = date.today()
-
-    current_date = str(current_date)
-
-    current_date_split = current_date.split('-')
-
-    current_year_int = int(current_date_split[0])
-    current_month_int = int(current_date_split[1])
 
     while True:
         try:
@@ -179,12 +221,15 @@ def adding_expenses(foo):
                         elif frequency_of_expense == 's':
                             amount_next_expense = round((amount_next_expense / 26), 2)
                             break
-                        elif amount_next_expense == 'y':
+                        elif frequency_of_expense == 'a':
                             amount_next_expense = round((amount_next_expense / 52), 2)
+                            break
+                        elif frequency_of_expense == 'w':
+                            amount_next_expense = round(amount_next_expense, 2)
                             break
                     except ValueError:
                         pass
-                    print('Please enter either w, f, m, s or y')
+                    print('Please enter either w, f, m, s or a')
 
                 foo.set_expense(next_expense, amount_next_expense)
 
@@ -198,51 +243,7 @@ def adding_expenses(foo):
                 break
         except ValueError:
             pass
-
-def savings_calculator():
-    while True:
-        try:
-            savings_goal = float(input('What is your savings goal? $'))
-            if savings_goal > 0.0:
-                break
-        except ValueError:
-            pass
-        print('Your goal must be a positve number')
-
-    paid_date1 = input('When do you want to save this by? format: mm/yyyy ')
-
-    current_date1 = date.today()
-
-    current_date1 = str(current_date1)
-
-    current_date_split1 = current_date1.split('-')
-
-    current_year_int1 = int(current_date_split1[0])
-    current_month_int1 = int(current_date_split1[1])
-
-    while True:
-        try:
-            paid_date1 = input('When do you want to save this by? format: mm/yyyy ')
-            paid_date_ints1 = paid_date1.split('/')
-            if len(paid_date_ints1) == 2:
-                month_int1 = int(paid_date_ints1[0])
-                year_int1 = int(paid_date_ints1[1])
-                if month_int1 > 0 and month_int1 <= 12:
-                    if year_int1 > 2021 and year_int1 <= 2099:    
-                        if year_int1 > current_year_int1:
-                            break
-                        elif year_int1 == current_year_int1:
-                            if month_int1 > current_month_int1:
-                                break
-        except ValueError:
-            pass
-        print('Enter future date in correct format: mm/yyyy ')
-
-    months_to_pay1 = ((year_int1 - current_year_int1) * 12) + (month_int1 - current_month_int1)
-
-    contribution_needed1 = round(((savings_goal / months_to_pay1) / 4), 2)
-
-    print(f'You will need to hide away ${contribution_needed1} each week to reach your goal!')
+        print('Please enter y or n')
 
 def saving_expenses(username, budget_instance):
     filename = ('exp_desc' + str(username) + '.dat')
@@ -293,13 +294,14 @@ def delete_user(username):
         with open('logins_filename.dat', 'rb') as rfp:
             logins_diction = pickle.load(rfp)
             logins_diction.pop(username)
-        print(logins_diction)
+        list_users = list(dict.keys(logins_diction))
+        print(f' Users remaining: {list_users}')
         with open('logins_filename.dat', 'wb') as wfp:
             pickle.dump(logins_diction, wfp)
 
         with open('logins_filename.dat', 'rb') as rfp:
             logins_diction = pickle.load(rfp)
-            
+
         os.remove(filename)
         os.remove(filename1)
         os.remove(filename2)
