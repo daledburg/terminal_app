@@ -1,10 +1,9 @@
 import pickle
 import os
+from datetime import date
 from simple_term_menu import TerminalMenu
 from prettytable import PrettyTable
 import clearing
-from datetime import date
-from budget import Budget
 
 # Menu configuration
 def menu():
@@ -31,14 +30,14 @@ def further_features():
 # Calculates income per week
 def pay_timetable():
     while True:
-        try:    
+        try:
             your_income = float(input("What is your income after tax? $"))
             if your_income > 0.0:
                 break
         except ValueError:
             pass
         print('Your income must be a positve number')
-    
+
     while True:
         try:
             pay_time = input("Are you paid weekly, fortnightly, or monthly? (w/f/m) ")
@@ -82,14 +81,14 @@ def display_table(x):
 # Feature of debt calculator function
 def debt_calculator():
     while True:
-        try:    
+        try:
             balance_owed = float(input('What is the balance owed on the outstanding debt? $'))
             if balance_owed > 0.0:
                 break
         except ValueError:
             pass
         print('Your balance must be a positve number')
-    
+
     while True:
         try:
             current_contribution = float(input('What is your current regualar contribution to this debt? $'))
@@ -98,7 +97,7 @@ def debt_calculator():
         except ValueError:
             pass
         print('Your current contribution must be a positve number and less than balance owed.')
-    
+
     while True:
         try:
             frequency_of_contribution = (input('Do you pay this expense weekly, fortnightly, monthly? (w/f/m) ')).lower()
@@ -125,21 +124,22 @@ def debt_calculator():
 
     while True:
         try:
-            paid_date = str(input('When do you want to pay this off by? format: mm/yyyy '))
+            paid_date = input('When do you want to pay this off by? format: mm/yyyy '))
             paid_date_ints = paid_date.split('/')
-
-            month_int = int(paid_date_ints[0])
-            year_int = int(paid_date_ints[1])
-            if (month_int > 0 and month_int <= 12) and (year_int > 2021 and year_int <= 2099):
-                if year_int > current_year_int:
-                    break
-                elif year_int == current_year_int:
-                    if month_int > current_month_int:
-                        break
+            if len(paid_date_ints) == 2:
+                month_int = int(paid_date_ints[0])
+                year_int = int(paid_date_ints[1])
+                if month_int > 0 and month_int <= 12:
+                    if year_int > 2021 and year_int <= 2099:    
+                        if year_int > current_year_int:
+                            break
+                        elif year_int == current_year_int:
+                            if month_int > current_month_int:
+                                break
         except ValueError:
             pass
-        print('Please enter future date in correct format: ')
-          
+        print('Enter future date in correct format: mm/yyyy ')
+
     months_to_pay = ((year_int - current_year_int) * 12) + (month_int - current_month_int)
 
     contribution_needed = round(((balance_owed / months_to_pay) / 4), 2)
@@ -168,10 +168,10 @@ def adding_expenses(foo):
                 elif amount_next_expense == 'y':
                     amount_next_expense = round((amount_next_expense / 52), 2)
                 foo.set_expense(next_expense, amount_next_expense)
-                
+
                 clearing.clear()
 
-                print(f'Current expenses include: ')
+                print('Current expenses include: ')
 
                 for i in range(len(foo.expense_description)):
                     print(foo.expense_description[i])
@@ -185,7 +185,7 @@ def adding_expenses(foo):
 
 def savings_calculator():
     while True:
-        try:    
+        try:
             savings_goal = float(input('What is your savings goal? $'))
             if savings_goal > 0.0:
                 break
@@ -222,29 +222,6 @@ def savings_calculator():
             pass
         print('Enter future date in correct format: mm/yyyy ')
 
-    # while True:
-    #     try:
-    #         month_int1 = int(paid_date_ints1[0])
-    #         year_int1 = int(paid_date_ints1[1])
-    #         if month_int1 > 0 and month_int1 <= 12:
-    #             break
-    #     except ValueError:
-    #         pass
-    #     print('Month must be whole number between 0 and 12 inclusive')
-
-    # while True:
-    #     try:
-    #         if year_int1 > 2021 and year_int1 <= 2099:
-    #             if year_int1 > current_year_int1:
-    #                 break
-    #             elif year_int1 == current_year_int1:
-    #                 if month_int1 > current_month_int1:
-    #                     break
-    #     except ValueError:
-    #         pass
-    #     print('Please enter future date in correct format: ')
-
-
     months_to_pay1 = ((year_int1 - current_year_int1) * 12) + (month_int1 - current_month_int1)
 
     contribution_needed1 = round(((savings_goal / months_to_pay1) / 4), 2)
@@ -254,7 +231,6 @@ def savings_calculator():
 def saving_expenses(username, budget_instance):
     filename = ('exp_desc' + str(username) + '.dat')
     filename1 = ('exp_amount' + str(username) + '.dat')
-    # filename2 = ('income_amount' + str(username) + '.dat')
 
     outfile = open(filename, 'wb')
     pickle.dump(budget_instance.expense_description, outfile)
@@ -263,10 +239,6 @@ def saving_expenses(username, budget_instance):
     outfile1 = open(filename1, 'wb')
     pickle.dump(budget_instance.expense_amount, outfile1)
     outfile1.close()
-
-    # outfile2 = open(filename2, 'wb')
-    # pickle.dump(income_save, outfile2)
-    # outfile2.close()
 
 def save_income(username, income_save):
     filename2 = ('income_amount' + str(username) + '.dat')
@@ -278,7 +250,6 @@ def save_income(username, income_save):
 def open_expenses(username, budget_instance):
     filename = ('exp_desc' + str(username) + '.dat')
     filename1 = ('exp_amount' + str(username) + '.dat')
-    # filename2 = ('income_amount' + str(username) + '.dat')
 
     infile = open(filename, 'rb')
     budget_instance.expense_description = pickle.load(infile)
