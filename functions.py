@@ -1,3 +1,4 @@
+# Functions module
 import pickle
 import os
 from datetime import date
@@ -27,7 +28,7 @@ def further_features():
     menu_entry_index2 = terminal_menu2.show()
     return options2[menu_entry_index2]
 
-# Calculates income per week
+# Calculates income per week including error handling
 def pay_timetable():
     while True:
         try:
@@ -52,7 +53,7 @@ def pay_timetable():
         except ValueError:
             pass
         print('Please enter either w, f or m')
-        
+
 # Table of income, expenses and left over money
 def display_table(x):
     expense_table = PrettyTable()
@@ -124,7 +125,7 @@ def debt_calculator():
 
     while True:
         try:
-            paid_date = input('When do you want to pay this off by? format: mm/yyyy '))
+            paid_date = input('When do you want to pay this off by? format: mm/yyyy ')
             paid_date_ints = paid_date.split('/')
             if len(paid_date_ints) == 2:
                 month_int = int(paid_date_ints[0])
@@ -157,16 +158,34 @@ def adding_expenses(foo):
             more_exp = input('Do you want to add an expense? (y/n): ')
             if more_exp == 'y':
                 next_expense = input('What is this expense? ')
-                amount_next_expense = float(input('How much is this expense? $'))
-                frequency_of_expense = (input('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) ')).lower()
-                if frequency_of_expense == 'f':
-                    amount_next_expense = round((amount_next_expense / 2), 2)
-                elif frequency_of_expense == 'm':
-                    amount_next_expense = round((amount_next_expense / 4), 2)
-                elif frequency_of_expense == 's':
-                    amount_next_expense = round((amount_next_expense / 26), 2)
-                elif amount_next_expense == 'y':
-                    amount_next_expense = round((amount_next_expense / 52), 2)
+                while True:
+                    try:
+                        amount_next_expense = float(input('How much is this expense? $'))
+                        if amount_next_expense > 0:
+                            break
+                    except ValueError:
+                        pass
+                    print('Expense amount must be number greater than 0')
+                
+                while True:
+                    try:
+                        frequency_of_expense = (input('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) ')).lower()
+                        if frequency_of_expense == 'f':
+                            amount_next_expense = round((amount_next_expense / 2), 2)
+                            break
+                        elif frequency_of_expense == 'm':
+                            amount_next_expense = round((amount_next_expense / 4), 2)
+                            break
+                        elif frequency_of_expense == 's':
+                            amount_next_expense = round((amount_next_expense / 26), 2)
+                            break
+                        elif amount_next_expense == 'y':
+                            amount_next_expense = round((amount_next_expense / 52), 2)
+                            break
+                    except ValueError:
+                        pass
+                    print('Please enter either w, f, m, s or y')
+
                 foo.set_expense(next_expense, amount_next_expense)
 
                 clearing.clear()
@@ -174,12 +193,9 @@ def adding_expenses(foo):
                 print('Current expenses include: ')
 
                 for i in range(len(foo.expense_description)):
-                    print(foo.expense_description[i])
-
+                        print(foo.expense_description[i])
             elif more_exp == 'n':
                 break
-            else:
-                print('Please answer y or n.')
         except ValueError:
             pass
 
