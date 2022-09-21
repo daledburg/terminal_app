@@ -100,6 +100,7 @@ def savings_calculator(goal_amount, month_int, year_int):
     months_to_pay = (((year_int - current_date_split[0]) * 12) + (month_int - current_date_split[1]))
     contribution_needed = round(((goal_amount / months_to_pay) / 4), 2)
     print(f'You will need to hide away ${contribution_needed} each week to reach your goal!')
+    return contribution_needed
 
 # Function to get future date for calculators
 def future_date(inp_str):
@@ -124,11 +125,12 @@ def future_date(inp_str):
 # Feature of debt calculator function
 def debt_calculator(debt_amount, month_int, year_int, contribution):
     months_to_pay = ((year_int - current_date_split[0]) * 12) + (month_int - current_date_split[1])
-    contribution_needed = round(((debt_amount / months_to_pay) / 4), 2)
+    contribution_needed = round((debt_amount / (months_to_pay * 4)), 2)
     contribution_diff = round((contribution_needed - contribution), 2)
     print(f'You currently contribute ${contribution} each week.')
     print(f'To meet your goal you need to contribute ${contribution_needed} per week')
     print(f'That is a difference of ${contribution_diff}')
+    return contribution_diff
 
 # input function
 def input_functions(input_type_str, err_type_str):
@@ -216,3 +218,19 @@ def delete_user(username):
     if user_delete == 'n':
         print('Profile not deleted, now exiting.')
         quit()
+
+def expen_funct(b_instance):
+    while True:
+        try:
+            more_exp = input('Do you want to add an expense? (y/n): ').lower()
+            if more_exp == 'y':
+                next_expense = input('Provide a description of this expense: ')
+                amount_next_expense = input_functions('How much is this expense? $', 'Amount entered must be greater than 0')
+                amount_next_expense = pay_timetable('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) ', amount_next_expense, 'Please enter w, f, m, s or a')
+                print_exp(b_instance, next_expense, amount_next_expense)
+            elif more_exp == 'n':
+                break
+        except ValueError:
+            pass
+        print('Please enter y or n')
+                  
