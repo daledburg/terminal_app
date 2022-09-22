@@ -4,8 +4,6 @@ import os
 import clearing
 from functions import menu
 
-
-
 # New user function
 def new_user():
     logins_filename = 'logins_filename.dat'

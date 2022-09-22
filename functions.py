@@ -1,5 +1,4 @@
 # Functions module
-from datetime import date
 from simple_term_menu import TerminalMenu
 
 # Menu configuration can be configured for the different menus

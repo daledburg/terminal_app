@@ -1,11 +1,11 @@
-# Functions module
+# Functions module for budget inputs
 import pickle
-import os
-import time
 from datetime import date
 from simple_term_menu import TerminalMenu
 from prettytable import PrettyTable
 import clearing
+from functions import input_functions
+from budget import Budget
 
 # Finding weekly values of entry for incomes expense etc.
 def pay_timetable(type_str, inc_value, err_str):

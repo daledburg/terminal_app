@@ -1,8 +1,5 @@
-# Functions module
+# Functions module for calculators
 from datetime import date
-from simple_term_menu import TerminalMenu
-from prettytable import PrettyTable
-
 
 # Current Date info
 current_date = date.today()
@@ -47,6 +44,3 @@ def future_date(inp_str):
         except ValueError:
             pass
         print('Enter future date in correct format: mm/yyyy ')
-
-
-
