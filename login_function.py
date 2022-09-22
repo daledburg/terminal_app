@@ -124,6 +124,8 @@ def delete_all_users():
             for item in test:
                 if item.endswith('.dat'):
                     os.remove(item)
+                    print('Profiles deleted successfully')
+                    quit()
 
     elif user_delete == 'n':
         print('Profiles not deleted, now exiting.')
