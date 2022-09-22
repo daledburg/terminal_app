@@ -1,5 +1,6 @@
 # Budgeting app
 # Imported packages for application
+import sys
 import clearing
 import budget
 import functions
@@ -84,7 +85,7 @@ if __name__ == '__main__':
             # let user quit
             elif if_new == 'Quit':
                 print('Goodbye!')
-                quit()
+                sys.exit()
         except Exception:
             pass
         print('No current users, please register')
@@ -129,12 +130,14 @@ if __name__ == '__main__':
         elif next_feature == 'Delete User Profile':
             clearing.clear()
             login_function.delete_user(username)
+            sys.exit()
 
         elif next_feature == 'Delete All Users Profiles':
             clearing.clear()
             login_function.delete_all_users()
+            sys.exit()
         # let user quit
         elif next_feature == 'Quit':
             clearing.clear()
             print(f'Thank you {username} using this application, have a nice day!')
-            quit()
+            sys.exit()

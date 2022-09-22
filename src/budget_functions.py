@@ -1,11 +1,7 @@
 # Functions module for budget inputs
 import pickle
-from datetime import date
-from simple_term_menu import TerminalMenu
-from prettytable import PrettyTable
 import clearing
 from functions import input_functions
-from budget import Budget
 
 # Finding weekly values of entry for incomes expense etc.
 def pay_timetable(type_str, inc_value, err_str):
@@ -90,7 +86,7 @@ def expen_funct(b_instance):
             if more_exp == 'y':
                 next_expense = input('Provide a description of this expense: ')
                 amount_next_expense = input_functions('How much is this expense? $', 'Amount entered must be greater than 0')
-                amount_next_expense = pay_timetable('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/y) ', amount_next_expense, 'Please enter w, f, m, s or a')
+                amount_next_expense = pay_timetable('Do you pay this expense weekly, fortnightly, monthly, semi-annually or annually? (w/f/m/s/a) ', amount_next_expense, 'Please enter w, f, m, s or a')
                 print_exp(b_instance, next_expense, amount_next_expense)
             elif more_exp == 'n':
                 break

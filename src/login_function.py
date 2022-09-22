@@ -1,4 +1,5 @@
 # Login functionality
+import sys
 import pickle
 import os
 import clearing
@@ -79,7 +80,7 @@ def current_user():
             pass
         cont_or_quit = menu('Try Again?', 'Quit', menu_item2 = None, menu_item3  = None, menu_item4  = None)
         if cont_or_quit == 'Quit':
-            quit()
+            sys.exit()
         elif cont_or_quit == 'Try Again?':
             clearing.clear()
             continue
@@ -109,10 +110,10 @@ def delete_user(username):
         os.remove(filename2)
 
         print('User deleted successfully, now exiting.')
-        quit()
+        sys.exit()
     elif user_delete == 'n':
         print('Profile not deleted, now exiting.')
-        quit()
+        sys.exit()
 
 # Function to delete all users data from the database
 def delete_all_users():
@@ -125,8 +126,5 @@ def delete_all_users():
                 if item.endswith('.dat'):
                     os.remove(item)
                     print('Profiles deleted successfully')
-                    quit()
-
     elif user_delete == 'n':
         print('Profiles not deleted, now exiting.')
-        quit()
