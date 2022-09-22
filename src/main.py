@@ -16,7 +16,6 @@ inc_err_str = 'Please enter w, f, or m'
 pay_inc_str = 'How frequently are you paid? (w/f/m): '
 
 if __name__ == '__main__':
-    
     # Menu for budget start
     clearing.clear()
     print('Welcome to budget buddy! Your best buddy for helping you save money!')
