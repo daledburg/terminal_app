@@ -77,7 +77,7 @@ def current_user():
                 break
         except Exception:
             pass
-        cont_or_quit = functions.wrong_user_menu()
+        cont_or_quit = functions.menu('Try Again?', 'Quit', menu_item2 = None, menu_item3  = None, menu_item4  = None)
         if cont_or_quit == 'Quit':
             quit()
         elif cont_or_quit == 'Try Again?':

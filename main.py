@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # Handle error if no users created yet
     while True:
         try:
-            if_new = functions.menu()
+            if_new = functions.menu('Register', 'Existing User','Quit', menu_item3 = None, menu_item4 = None)
             if if_new == 'Register':
                 username = login_function.new_user()
                 print(f'Hello there {username}, lets get down to saving you money!')
@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
     # Loop to let user use each of the features as they want
     while True:
-        next_feature = functions.further_features()
+        next_feature = functions.menu('Savings Calculator', 'Debt Relief Calculator', 'Delete User Profile', 'Delete All Users Profiles', 'Quit')
 
         clearing.clear()
 
