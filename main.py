@@ -1,7 +1,5 @@
 # Budgeting app
 # Imported packages for application
-from ast import Try
-import time
 import clearing
 import budget
 import functions
@@ -128,6 +126,9 @@ if __name__ == '__main__':
             clearing.clear()
             functions.delete_user(username)
 
+        elif next_feature == 'Delete All Users Profiles':
+            clearing.clear()
+            functions.delete_all_users()
         # let user quit
         elif next_feature == 'Quit':
             clearing.clear()

@@ -35,7 +35,7 @@ def wrong_user_menu():
 
 # Menu to select other features
 def further_features():
-    options2 = ['Savings Calculator', 'Debt Relief Calculator', 'Delete User Profile', 'Quit']
+    options2 = ['Savings Calculator', 'Debt Relief Calculator', 'Delete User Profile', 'Delete All Users Profiles', 'Quit']
     terminal_menu2 = TerminalMenu(options2)
     menu_entry_index2 = terminal_menu2.show()
     return options2[menu_entry_index2]
@@ -214,8 +214,7 @@ def delete_user(username):
 
         print('User deleted successfully, now exiting.')
         quit()
-
-    if user_delete == 'n':
+    elif user_delete == 'n':
         print('Profile not deleted, now exiting.')
         quit()
 
@@ -233,4 +232,18 @@ def expen_funct(b_instance):
         except ValueError:
             pass
         print('Please enter y or n')
-                  
+
+# Function to delete all users data from the database
+def delete_all_users():
+    user_delete = input('Are you sure you want to delete all users? (y/n): ')
+    if user_delete == 'y':
+        sure_question = input('Please enter master password to delete all users: ')
+        if sure_question == 'DeletePassword':
+            test = os.listdir('.')
+            for item in test:
+                if item.endswith('.dat'):
+                    os.remove(item)
+
+    elif user_delete == 'n':
+        print('Profiles not deleted, now exiting.')
+        quit()
