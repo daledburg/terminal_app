@@ -2,6 +2,7 @@
 # Imported packages for application
 import sys
 import clearing
+import pyfiglet
 import budget
 import functions
 import budget_functions
@@ -18,6 +19,7 @@ pay_inc_str = 'How frequently are you paid? (w/f/m): '
 if __name__ == '__main__':
     # Menu for budget start
     clearing.clear()
+    print(pyfiglet.figlet_format('Budget Buddy!', font='slant', justify='center'))
     print('Welcome to budget buddy! Your best buddy for helping you save money!')
 
     # Handle error if no users created yet
