@@ -21,6 +21,3 @@ class Budget:
             print(f'Based on your entered expenses, you have ${self.spare} left to spend every week!')
         print('These expense amounts will be stored in your account.')
         return self.spare
-
-
-
