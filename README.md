@@ -17,6 +17,10 @@ The first step to the implementation plan was to decide what would be the main f
 
 ![Trello Board](docs/img/trelloboard.png)
 
+I also completed a basic flow chart of how the program should flow to be able to steer my thoughts in the right direction. A copy of this flowchart can be seen here:
+
+![Flowchart](docs/img/Flowchart-budgetbuddy.png)
+
 ---
 
 ## Purpose of design
@@ -46,3 +50,23 @@ This application is being designed as a bash-terminal based application using py
     The next two features that were added were similar in that they are calculators to be able to help users who want to save a certain amount by a particular date or attempt to pay off an outstanding debt in a different timeframe. Both of these features use the datetime package to import the current date so as to calculate the amount of time between today's date and the future date entered by the user. The savings goal asks for a goal, followed by when the user would like to accomplish this by, it then prints a message displaying how much money they need to save each week to reach this goal. The debt calculator on the other hand takes the input of how much is left to pay and asks how much money they are currently contributing. From this it will calculate how much more or less they need to contribute to reach the date goal they have set. Again all of these inputs have error handling implemented to ensure that users arent able to break the application through there inputs.
 
 ---
+
+# Help Documentation
+
+This documentation can also be found in the docs folder.
+
+1. This application requires python3 to be installed on your system. Please visit [Python Installer](https://www.python.org/downloads/) and follow the instructions to install.
+2. Next step is to clone the repository using:
+```bash
+git clone git@github.com:daledburg/terminal_application.git
+```
+3. Navigate into the src/dist folder in the directory where the repository has been cloned:
+```bash
+cd src/dist
+```
+4. From here, run the the program using:
+```bash
+./budget_buddy
+```
+5. This runs the application and from here follow onscreen instructions and enjoy!
+
