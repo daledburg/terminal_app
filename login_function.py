@@ -1,8 +1,10 @@
 # Login functionality
 import pickle
 import os
-import functions
 import clearing
+from functions import menu
+
+
 
 # New user function
 def new_user():
@@ -77,7 +79,7 @@ def current_user():
                 break
         except Exception:
             pass
-        cont_or_quit = functions.menu('Try Again?', 'Quit', menu_item2 = None, menu_item3  = None, menu_item4  = None)
+        cont_or_quit = menu('Try Again?', 'Quit', menu_item2 = None, menu_item3  = None, menu_item4  = None)
         if cont_or_quit == 'Quit':
             quit()
         elif cont_or_quit == 'Try Again?':
@@ -85,3 +87,46 @@ def current_user():
             continue
 
     return inp_user
+
+# Function to delete single user that is logged in
+def delete_user(username):
+    filename = ('exp_desc' + str(username) + '.dat')
+    filename1 = ('exp_amount' + str(username) + '.dat')
+    filename2 = ('income_amount' + str(username) + '.dat')
+    user_delete = input('Are you sure you want to delete this user? (y/n): ')
+    if user_delete == 'y':
+        with open('logins_filename.dat', 'rb') as rfp:
+            logins_diction = pickle.load(rfp)
+            logins_diction.pop(username)
+        list_users = list(dict.keys(logins_diction))
+        print(f' Users remaining: {list_users}')
+        with open('logins_filename.dat', 'wb') as wfp:
+            pickle.dump(logins_diction, wfp)
+
+        with open('logins_filename.dat', 'rb') as rfp:
+            logins_diction = pickle.load(rfp)
+
+        os.remove(filename)
+        os.remove(filename1)
+        os.remove(filename2)
+
+        print('User deleted successfully, now exiting.')
+        quit()
+    elif user_delete == 'n':
+        print('Profile not deleted, now exiting.')
+        quit()
+
+# Function to delete all users data from the database
+def delete_all_users():
+    user_delete = input('Are you sure you want to delete all users? (y/n): ')
+    if user_delete == 'y':
+        sure_question = input('Please enter master password to delete all users: ')
+        if sure_question == 'DeletePassword':
+            test = os.listdir('.')
+            for item in test:
+                if item.endswith('.dat'):
+                    os.remove(item)
+
+    elif user_delete == 'n':
+        print('Profiles not deleted, now exiting.')
+        quit()

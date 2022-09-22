@@ -3,7 +3,10 @@
 import clearing
 import budget
 import functions
+import budget_functions
 import login_function
+import calculators
+from table import display_table
 
  # Strings to be used for input fields
 inc_str = "What is your income after tax? $"
@@ -26,15 +29,15 @@ if __name__ == '__main__':
 
                 your_income = functions.input_functions(inc_str, not_positive_err)
 
-                your_income = functions.pay_timetable(pay_inc_str, your_income, inc_err_str)
+                your_income = budget_functions.pay_timetable(pay_inc_str, your_income, inc_err_str)
 
-                functions.save_income(username, your_income)
+                budget_functions.save_income(username, your_income)
                 clearing.clear()
                 p1 = budget.Budget(username, your_income)
-                functions.expen_funct(p1)
+                budget_functions.expen_funct(p1)
                 clearing.clear()
                 spare = p1.spare_cash()
-                functions.saving_expenses(username, p1)
+                budget_functions.saving_expenses(username, p1)
                 break
     # Use previously saved data to calculate data
             elif if_new == 'Existing User':
@@ -46,13 +49,13 @@ if __name__ == '__main__':
                         try:
                             saved_income = input('Would you like to use your saved income? (y/n): ')
                             if saved_income == 'y':
-                                your_income = functions.open_income(username)
+                                your_income = budget_functions.open_income(username)
                                 break
                             elif saved_income == 'n':
                                 your_income = functions.input_functions(inc_str, not_positive_err)
-                                your_income = functions.pay_timetable(pay_inc_str, your_income, inc_err_str)
+                                your_income = budget_functions.pay_timetable(pay_inc_str, your_income, inc_err_str)
                                 # Create new Saved income file
-                                functions.save_income(username, your_income)
+                                budget_functions.save_income(username, your_income)
                                 break
                         except ValueError:
                             pass
@@ -64,18 +67,18 @@ if __name__ == '__main__':
                         try:
                             saved_expenses = input('Would you like to use your saved expenses? (y/n): ')
                             if saved_expenses == 'y':
-                                functions.open_expenses(username, p1)
+                                budget_functions.open_expenses(username, p1)
                                 break
                             elif saved_expenses == 'n':
                                 clearing.clear()
-                                functions.expen_funct(p1)
+                                budget_functions.expen_funct(p1)
                                 break
                         except ValueError:
                             pass
                         print('Please enter y or n')
                     clearing.clear()
                     spare = p1.spare_cash()
-                    functions.saving_expenses(username, p1)
+                    budget_functions.saving_expenses(username, p1)
                     break
             # let user quit
             elif if_new == 'Quit':
@@ -86,7 +89,7 @@ if __name__ == '__main__':
         print('No current users, please register')
 
     # Display Table to show user breakdown of expenses against income and leftover money
-    functions.display_table(p1)
+    display_table(p1)
 
     # What feature would they like to do next?
     print('There are more features to explore.')
@@ -101,9 +104,9 @@ if __name__ == '__main__':
             clearing.clear()
             savings_goal = functions.input_functions('What is your savings goal? $', not_positive_err)
 
-            time_goal = functions.future_date('save this')
+            time_goal = calculators.future_date('save this')
 
-            functions.savings_calculator(savings_goal, time_goal[0], time_goal[1])
+            calculators.savings_calculator(savings_goal, time_goal[0], time_goal[1])
 
         elif next_feature == 'Debt Relief Calculator':
             clearing.clear()
@@ -117,18 +120,18 @@ if __name__ == '__main__':
                     pass
                 print('Your current contribution must be a positve number and less than balance owed.')
 
-            cont_time = functions.pay_timetable('How often do you contribute money towards paying this debt off? (w/f/m) ', current_contribution, inc_err_str)
-            time_goal = functions.future_date('have this paid off')
-            functions.debt_calculator(balance_owed, time_goal[0], time_goal[1], current_contribution)
+            cont_time = budget_functions.pay_timetable('How often do you contribute money towards paying this debt off? (w/f/m) ', current_contribution, inc_err_str)
+            time_goal = calculators.future_date('have this paid off')
+            calculators.debt_calculator(balance_owed, time_goal[0], time_goal[1], current_contribution)
 
         # Delete current user and any saved data
         elif next_feature == 'Delete User Profile':
             clearing.clear()
-            functions.delete_user(username)
+            login_function.delete_user(username)
 
         elif next_feature == 'Delete All Users Profiles':
             clearing.clear()
-            functions.delete_all_users()
+            login_function.delete_all_users()
         # let user quit
         elif next_feature == 'Quit':
             clearing.clear()

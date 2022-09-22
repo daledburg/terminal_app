@@ -18,24 +18,16 @@ The styling guide that was followed when creating this application was PEP 8. Th
 
 This application is being designed as a bash-terminal based application using python. The goal in creating this application is to provide a useful tool for users to be able to understand their financial situation and provide facts and figures to help them make smarter financial decisions. It has multiple features to provide an array of different kinds of information that the user may want, while also providing the ability for the user to create their own profile to store this information.
 
-Develop an implementation plan which:
-- outlines how each feature will be implemented and a checklist of tasks for each feature
-- prioritise the implementation of different features, or checklist items within a feature
-- provide a deadline, duration or other time indicator for each feature or checklist/checklist-item
 
-Utilise a suitable project management platform to track this implementation plan.
-
-Provide screenshots/images and/or a reference to an accessible project management platform used to track this implementation plan.
-Your checklists for each feature should have at least 5 items.
 ## Features
 
 ### Login and store data relating to login
 This application provides two different login methods when starting. First of all is 'Register' for new users to create their own unique Username and Password. The script accomplishes this through the use of dictionaries and the python package Pickle. To do this a file where the login information is opened, the new User is then prompted to create a Username and a Password. From there the script takes these values and assigns the username input as the key, and the password input as the value in a dictionary that is saved into the open file. This file can then be accessed in further uses of the application and these inputs can be accessed to check if the password entered corresponds to the valid value for password.
 
-The username that is created is also used to save the budget data for later recall. for each of the descriptions and amounts of expenses as well as the income information a new file is created where a predetermined string is concatenated with the username information to create the new file. When a user logs in at a later date this information can be retrieved by re-opening the file name 
+The username that is created is then used to save the budget data for later recall. For the user data that is entered for descriptions and amounts of expenses as well as the income a new file is created. This new fileis named using a predetermined string that is concatenated with the username information to create the new file name. When a user logs in at a later date this information can be retrieved by re-opening the file name that has the corresponding username information in the file name and loading the information using pickle load.
 
 ### Budget inputs budget and expenses
-
+The budget feature itself is the heart of the project. Once the user has created a profile, it begins asking questions, starting with the income of the user and then following on to the regular expenses that the user may have. Both the income and expenses also asks how often they are either paying it or are being paid so that the script can convert the values into comparable values. This aspect of the feature allows the application itself to do most of the heavy lifting for the data analysis. This feature showcases 
 
 ### graphical table to show information
 
