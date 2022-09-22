@@ -1,8 +1,12 @@
-# Terminal Application Assignment
+# Terminal Application Assignment - Your Budget Buddy!
 
-## link to source control repository
+[App repository found here!](https://github.com/daledburg/terminal_application)
+
 ---
 ## Code styling guide/styling conventions
+The styling guide that was followed when creating this application was PEP 8. This code relates directly to Python and provides coding conventions for the standard Python libraries.
+[PEP 8 Stlye Guide](https://peps.python.org/pep-0008/)
+
 ---
 ## list of each feature and description
 - use of variables and concept of variable scope
@@ -26,7 +30,9 @@ Your checklists for each feature should have at least 5 items.
 ## Features
 
 ### Login and store data relating to login
-This application provides two different login methods when starting. First of all is for new users to register and create their own unique Username and Password. The script accomplishes this through the use of dictionaries and the python package Pickle. To do this a file where the login information is opened, the new User is then prompted to create a Username and a Password. From there the script takes these values and assigns the username input as the key, and the password input as the value in a dictionary that is saved into the open file. This file can then be accessed in further uses of the application and these inputs can be 
+This application provides two different login methods when starting. First of all is 'Register' for new users to create their own unique Username and Password. The script accomplishes this through the use of dictionaries and the python package Pickle. To do this a file where the login information is opened, the new User is then prompted to create a Username and a Password. From there the script takes these values and assigns the username input as the key, and the password input as the value in a dictionary that is saved into the open file. This file can then be accessed in further uses of the application and these inputs can be accessed to check if the password entered corresponds to the valid value for password.
+
+The username that is created is also used to save the budget data for later recall. for each of the descriptions and amounts of expenses as well as the income information a new file is created where a predetermined string is concatenated with the username information to create the new file. When a user logs in at a later date this information can be retrieved by re-opening the file name 
 
 ### Budget inputs budget and expenses
 

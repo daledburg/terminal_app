@@ -6,7 +6,6 @@ from datetime import date
 from simple_term_menu import TerminalMenu
 from prettytable import PrettyTable
 import clearing
-import budget
 
 # Current Date info
 current_date = date.today()
