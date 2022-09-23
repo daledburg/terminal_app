@@ -16,12 +16,11 @@ def new_user():
     while True:
         try:
             username = str(input('What would you like your Username to be? '))
-            clearing.clear()
             if len(username) > 0 and len(username) < 20:
                 password = input('Input a password that is 6-16 characters long: ')
-                clearing.clear()
                 try:
                     if len(password) >= 6 and len(password) <= 16:
+                        clearing.clear()
                         break
                 except ValueError:
                     pass
