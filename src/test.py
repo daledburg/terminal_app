@@ -1,9 +1,10 @@
+# Testing module
 import pytest
 import functions
 import calculators
 import budget_functions
 
-
+# Fake inputs to use for testing various functions critical for application to work
 inputs = iter([5, 10, 1055, 25000, -5, -500, 0])
 inputs1 = iter(['10/2023', '12/2043', '08/2025', '05/2015', '10/2100', '102023', 'ASD'])
 inputs2 = iter(['w', 'f', 'm', 's', 'a', 'ds', '122', 'week', 'month'])
@@ -17,11 +18,13 @@ def fake_input1(prompt):
 def fake_input2(prompt):
     return next(inputs2)
 
+# Testing the Savings Calculator for range of valid values
 class TestSavingsCalculator:
     def test_savings_calculator(self):
         assert calculators.savings_calculator(1000, 7, 2023) == 25.0
         assert calculators.savings_calculator(11500, 5, 2025) == 89.84
         assert calculators.savings_calculator(400000, 3, 2052) == 282.49
+
 
 class TestDebtCalculator:
     def test_debt_calculator(self):
