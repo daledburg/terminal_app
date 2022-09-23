@@ -25,13 +25,14 @@ class TestSavingsCalculator:
         assert calculators.savings_calculator(11500, 5, 2025) == 89.84
         assert calculators.savings_calculator(400000, 3, 2052) == 282.49
 
-
+# Testing the Debt Calculator for range of valid values that should give both positive and negative outputs
 class TestDebtCalculator:
     def test_debt_calculator(self):
         assert calculators.debt_calculator(1000, 7, 2023, 15) == 10.0
         assert calculators.debt_calculator(200, 1, 2023, 50) == -37.5
         assert calculators.debt_calculator(250000, 12, 2040, 150) == 135.39
 
+# Test that input functions work correctly for valid inputs
 class TestInputFunctions:
     def test_valid_input_functions(self, monkeypatch):
         monkeypatch.setattr('builtins.input', fake_input)
@@ -40,6 +41,7 @@ class TestInputFunctions:
         assert functions.input_functions('inputstring', 'errorstring') == 1055.0
         assert functions.input_functions('inputstring', 'errorstring') == 25000.0
 
+# Test input function to test for invalid inputs, such as incorrect format
     def test_invalid_input_functions(self, monkeypatch):
         monkeypatch.setattr('builtins.input', fake_input)
         with pytest.raises(Exception):
@@ -49,6 +51,7 @@ class TestInputFunctions:
         with pytest.raises(Exception):
             functions.input_functions('inputstring', 'errorstring')
 
+# Test of date data, check that future input dates work correctly.
 class TestFutureDate:
     def test_valid_future_date(self, monkeypatch):
         monkeypatch.setattr('builtins.input', fake_input1)
@@ -67,6 +70,7 @@ class TestFutureDate:
         with pytest.raises(Exception):
             calculators.future_date('inpstr')
 
+# Test that inputs can be converted correctly into the appropriate weekly amounts
 class TestPayTimetable:
     def test_valid_pay_timetable(self, monkeypatch):
         monkeypatch.setattr('builtins.input', fake_input2)
@@ -76,6 +80,7 @@ class TestPayTimetable:
         assert budget_functions.pay_timetable('inputstring', 1000, 'errorstring') == 38.46
         assert budget_functions.pay_timetable('inputstring', 1000, 'errorstring') == 19.23
 
+# Test range of invalid user inputs that might occur
     def test_invalid_pay_timetable(self, monkeypatch):
         monkeypatch.setattr('builtins.input', fake_input2)
         with pytest.raises(Exception):
