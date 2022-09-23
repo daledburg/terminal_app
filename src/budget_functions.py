@@ -7,7 +7,7 @@ from functions import input_functions
 def pay_timetable(type_str, inc_value, err_str):
     while True:
         try:
-            pay_time = input(type_str)
+            pay_time = input(type_str).lower()
             if pay_time == 'm':
                 inc_value = round((inc_value / 4), 2)
                 return inc_value
