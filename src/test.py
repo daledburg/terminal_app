@@ -9,6 +9,7 @@ inputs = iter([5, 10, 1055, 25000, -5, -500, 0])
 inputs1 = iter(['10/2023', '12/2043', '08/2025', '05/2015', '10/2100', '102023', 'ASD'])
 inputs2 = iter(['w', 'f', 'm', 's', 'a', 'ds', '122', 'week', 'month'])
 
+# Fake input functions for testing purposes
 def fake_input(prompt):
     return next(inputs)
 
@@ -58,7 +59,7 @@ class TestFutureDate:
         assert calculators.future_date('inputstring') == [10, 2023]
         assert calculators.future_date('inputstring') == [12, 2043]
         assert calculators.future_date('inputstring') == [8, 2025]
-    
+
     def test_invalid_future_date(self, monkeypatch):
         monkeypatch.setattr('builtins.input', fake_input1)
         with pytest.raises(Exception):

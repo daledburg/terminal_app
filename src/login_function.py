@@ -97,7 +97,8 @@ def delete_user(username):
             logins_diction = pickle.load(rfp)
             logins_diction.pop(username)
         list_users = list(dict.keys(logins_diction))
-        print(f' Users remaining: {list_users}')
+        print(f' Users remaining: {list_users}')\
+
         with open('logins_filename.dat', 'wb') as wfp:
             pickle.dump(logins_diction, wfp)
 
@@ -107,7 +108,6 @@ def delete_user(username):
         os.remove(filename)
         os.remove(filename1)
         os.remove(filename2)
-
         print('User deleted successfully, now exiting.')
         sys.exit()
     elif user_delete == 'n':

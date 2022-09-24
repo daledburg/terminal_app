@@ -8,11 +8,13 @@ class Budget:
         self.expense_amount = []
         self.total_expenses = 0
 
+    # Method to add to empty expense description and amount lists
     def set_expense(self, new_exp_des, new_exp_amount):
         self.expense_description.append(new_exp_des.capitalize())
         self.expense_amount.append(new_exp_amount)
         self.total_expenses = self.total_expenses + new_exp_amount
 
+    # Method to find leftover cash every week
     def spare_cash(self):
         self.spare = self.income - sum(self.expense_amount)
         if self.spare < 0:

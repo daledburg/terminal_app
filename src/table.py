@@ -13,10 +13,8 @@ def display_table(x):
                 expense_table = PrettyTable()
                 expense_table.field_names = ['Expense Description', 'Expense Amount per week ($)']
                 expense_table.add_row(['Income per week', x.income])
-
                 for i in range(len(x.expense_description)):
                     expense_table.add_row([x.expense_description[i], -(x.expense_amount[i])])
-
                 expense_table.add_row(['Money Left', (x.income - sum(x.expense_amount))])
                 expense_table.align['Expense Amount'] = 'r'
                 expense_table.align['Expense Description'] = 'r'

@@ -1,7 +1,7 @@
 # Functions module for calculators
 from datetime import date
 
-# Current Date info
+# Current Date info - creating data to represent current date that can be used to compare
 current_date = date.today()
 current_date = str(current_date)
 current_date_split = current_date.split('-')
@@ -31,7 +31,6 @@ def future_date(inp_str):
         try:
             paid_date = input(f'When do you want to {inp_str} by? format: mm/yyyy ')
             paid_date_ints = paid_date.split('/')
-
             if len(paid_date_ints) == 2:
                 paid_date_ints = [int(i) for i in paid_date_ints]
                 if paid_date_ints[0] > 0 and paid_date_ints[0] <= 12:

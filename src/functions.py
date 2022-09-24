@@ -19,4 +19,3 @@ def input_functions(input_type_str, err_type_str):
         except ValueError:
             pass
         print(err_type_str)
-
