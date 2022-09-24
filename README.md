@@ -1,5 +1,7 @@
 # T1A3 - Your Personal Budget Buddy
 
+### *By Dale Dahlenburg*
+
 [App repository found here!](https://github.com/daledburg/terminal_application)
 
 ---
@@ -112,6 +114,6 @@ cd src/dist
 4. This starts the application, from here follow onscreen instructions and enjoy!
 
 ---
-Reference:
+## Reference:
 
 - peps.python.org. (n.d.). PEP 8 – Style Guide for Python Code | peps.python.org. [online] Available at: https://peps.python.org/pep-0008/.
