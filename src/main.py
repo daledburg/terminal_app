@@ -30,15 +30,16 @@ if __name__ == '__main__':
             if if_new == 'Register':
                 username = login_function.new_user()
                 print(f'Hello there {username}, lets get down to saving you money!')
-
+                
                 your_income = functions.input_functions(inc_str, not_positive_err)
-
                 your_income = budget_functions.pay_timetable(pay_inc_str, your_income, inc_err_str)
-
+                
                 budget_functions.save_income(username, your_income)
                 clearing.clear()
+                
                 p1 = budget.Budget(username, your_income)
                 budget_functions.expen_funct(p1)
+                
                 clearing.clear()
                 spare = p1.spare_cash()
                 budget_functions.saving_expenses(username, p1)
@@ -107,9 +108,7 @@ if __name__ == '__main__':
         if next_feature == 'Savings Calculator':
             clearing.clear()
             savings_goal = functions.input_functions('What is your savings goal? $', not_positive_err)
-
             time_goal = calculators.future_date('save this')
-
             calculators.savings_calculator(savings_goal, time_goal[0], time_goal[1])
 
         elif next_feature == 'Debt Relief Calculator':
@@ -123,7 +122,6 @@ if __name__ == '__main__':
                 except ValueError:
                     pass
                 print('Your current contribution must be a positve number and less than balance owed.')
-
             cont_time = budget_functions.pay_timetable('How often do you contribute money towards paying this debt off? (w/f/m) ', current_contribution, inc_err_str)
             time_goal = calculators.future_date('have this paid off')
             calculators.debt_calculator(balance_owed, time_goal[0], time_goal[1], current_contribution)
@@ -138,6 +136,7 @@ if __name__ == '__main__':
             clearing.clear()
             login_function.delete_all_users()
             sys.exit()
+
         # let user quit
         elif next_feature == 'Quit':
             clearing.clear()
