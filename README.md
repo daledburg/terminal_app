@@ -4,6 +4,8 @@
 
 [App repository found here!](https://github.com/daledburg/terminal_application)
 
+[Presentation video found here](https://vimeo.com/753438777)
+
 ---
 ## Code styling guide/styling conventions
 The styling guide that I decided to follow when creating this application was PEP 8. This code relates directly to Python and provides coding conventions for the standard Python libraries. It has been developed from the original Python Style guide written by the Python Creator Guido van Rossum.
